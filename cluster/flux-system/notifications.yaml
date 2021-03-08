@@ -25,3 +25,9 @@ spec:
       name: '*'
     - kind: Kustomization
       name: '*'
+    - kind: HelmRepository
+      name: '*'
+    - kind: HelmChart
+      name: '*'
+    - kind: HelmRelease
+      name: '*'
