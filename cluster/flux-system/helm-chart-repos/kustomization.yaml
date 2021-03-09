@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - democratic-csi-charts.yaml
   - sealed-secrets-charts.yaml
+  - botcube-charts.yaml
