@@ -71,8 +71,8 @@ spec:
           #username: ''
           #password: ''
         zfs:
-          datasetParentName: hdd/k8s/nfs/vols
-          detachedSnapshotsDatasetParentName: hdd/k8s/nfs/snaps
+          datasetParentName: root/k8s/nfs/vols
+          detachedSnapshotsDatasetParentName: root/k8s/nfs/snaps
           datasetEnableQuotas: true
           datasetEnableReservation: false
           datasetPermissionsMode: "0777"
