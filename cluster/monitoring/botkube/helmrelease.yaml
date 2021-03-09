@@ -19,10 +19,6 @@ spec:
     config:
       settings:
         clustername: cw.net
-      communications:
-        discord:
-          enabled:
-            true
       resources:
         - name: v1/pods                # Name of the resources e.g pod, deployment, ingress, etc. (Resource name must be in singular form)
           namespaces:
@@ -185,15 +181,5 @@ spec:
             - delete
             - error
   valuesFrom:
-    - kind: Secret
-      name: botkube-secrets
-      valuesKey: channel_id
-      targetPath: communications.discord.channel
-    - kind: Secret
-      name: botkube-secrets
-      valuesKey: bot_id
-      targetPath: communications.discord.botid
-    - kind: Secret
-      name: botkube-secrets
-      valuesKey: token
-      targetPath: communications.discord.token
+  - kind: Secret
+    name: botkube-helm-values
