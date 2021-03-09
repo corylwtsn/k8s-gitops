@@ -1,0 +1,82 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: freenas-nfs
+  namespace: kube-system
+spec:
+  chart:
+    spec:
+      chart: democratic-csi
+      sourceRef:
+        kind: HelmRepository
+        name: democratic-csi-charts
+    valuesFrom:
+      - kind: Secret
+        name: nfs-secrets
+        valuesKey: user
+        targetPath:
+          - driver.config.httpConnection.username
+          - driver.config.sshConnection.username
+      - kind: Secret
+        name: nfs-secrets
+        valuesKey: password
+        targetPath:
+          - driver.config.httpConnection.password
+          - driver.config.sshConnection.password
+      - kind: Secret
+        name: nfs-secrets
+        valuesKey: host
+        targetPath:
+          - driver.config.httpConnection.host
+          - driver.config.sshConnection.host
+  interval: 1m0s
+values:
+  csiDriver:
+  # should be globally unique for a given cluster
+  name: "org.democratic-csi.nfs"
+
+  storageClasses:
+  - name: freenas-nfs-csi
+    defaultClass: false
+    reclaimPolicy: Delete
+    volumeBindingMode: Immediate
+    allowVolumeExpansion: true
+    parameters:
+      fsType: nfs
+
+    mountOptions:
+    - noatime
+    - nfsvers=4
+
+  driver:
+    config:
+      driver: freenas-nfs
+      httpConnection:
+        protocol: http
+        #host: ''
+        port: 80
+        #username: ''
+        # password: ''
+        allowInsecure: true
+      sshConnection:
+        #host: ''
+        port: 22
+        #username: ''
+        #password: ''
+      zfs:
+        datasetParentName: hdd/k8s/nfs/vols
+        detachedSnapshotsDatasetParentName: hdd/k8s/nfs/snaps
+        datasetEnableQuotas: true
+        datasetEnableReservation: false
+        datasetPermissionsMode: "0777"
+        datasetPermissionsUser: root
+        datasetPermissionsGroup: wheel
+      nfs:
+        shareHost: 192.168.0.4
+        shareAlldirs: false
+        shareAllowedHosts: []
+        shareAllowedNetworks: []
+        shareMaprootUser: root
+        shareMaprootGroup: wheel
+        shareMapallUser: ""
+        shareMapallGroup: ""
