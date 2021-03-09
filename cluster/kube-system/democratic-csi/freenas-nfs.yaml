@@ -15,21 +15,15 @@ spec:
     - kind: Secret
       name: nfs-secrets
       valuesKey: user
-      targetPath:
-        - driver.config.httpConnection.username
-        - driver.config.sshConnection.username
+      targetPath: {driver.config.httpConnection.username, driver.config.sshConnection.username}
     - kind: Secret
       name: nfs-secrets
       valuesKey: password
-      targetPath:
-        - driver.config.httpConnection.password
-        - driver.config.sshConnection.password
+      targetPath: {driver.config.httpConnection.password, driver.config.sshConnection.password}
     - kind: Secret
       name: nfs-secrets
       valuesKey: host
-      targetPath:
-        - driver.config.httpConnection.host
-        - driver.config.sshConnection.host
+      targetPath: {driver.config.httpConnection.host, driver.config.sshConnection.host}
   values:
     csiDriver:
     # should be globally unique for a given cluster
