@@ -4,3 +4,4 @@ resources:
   - democratic-csi-charts.yaml
   - sealed-secrets-charts.yaml
   - botkube-charts.yaml
+  - bitnami-charts.yaml
