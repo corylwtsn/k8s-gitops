@@ -7,6 +7,15 @@ metadata:
 spec:
   encryptedData:
     values.yaml: AgBeMreJ+FdiMKpbDDkathIOZMwfN6lmxbwhEdBDZ2rvWt3DT222uloazHbmCwA2ejDjzPSnM3TsT2ScrRt92KhbuVIc8FgEuUkpcVvUTjn5ACA/ioa04JnkFHoD1LMQUtlsMeC1BetrtDXltPyQsEvduuEv3aYwE4bokVfu7tHDrA3+0bfqE0RREpLx5MfMVou0reVE6ztoMlYcNwemLngHkRuMn7KVPi3h6D6j90/GuJJl80pbsQS8NdSPjQunVXL7SeIy+yMRd8pXiU/MX9Dy8vn1OdqsFPxOallrt6RCd0dxaY7T1ITi1Br45ZBNBc6/9P41o/P+bvwOR5ldPO4Xfek4JGSpg+YEx1oSbIT6sObBI8HBMPrFxoLDcIktVf2C6OGanQN9hSKINkZnUDrLwYGJy31UAQA/hubXo+Ez7ore69FPxcLQeh0H9lU4iQt12jyNPXKA6Du6qHMyip3Xk1HXR2RlRF2golA6T366j755CIoMZzb9Vqcb7zG48zvcfBD98r0o6b4WjVj2kb0KJtPDZv1Vkc0eME0VY6s4FI1mOIkG9wG8ut1nqPdKHAQg2N15b85+T01N8Rv3+EopWXKM1OnAkZozGnxxgdvILyI4deLwZ8ne9dSjxHHbndsX7GETMjZ4QkiYFY02jfpR9BsE5jfxXhZJmLvKOSOvhvkOOX7z8ETAf2knsRROOu+DuXAlH6DpJCReQdjzncbPH0TkfeLSxChiuo8qkuvGMRZlFI3fQa0Jnhc0TOMkkS+aje+tz+2mLEAphGbX3CZE2QkoWorElQq/PsPbOtiqJSjSJVJS0bknXUt3wccuYdPRmwAPHKyPdTyGHcY3O1rVYqpvp8VgEJlNB+++l9XxH1hLUmKUsKJ6fYlb8VqTDB75RKqoGDi4YIvpMRuJjTF/mNnVGKYAAMrLHHwSnFfFwQAfcs/t9r0=
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key:  beta.kubernetes.io/arch
+              operator: In
+              values:
+              - amd64
   template:
     metadata:
       creationTimestamp: null
