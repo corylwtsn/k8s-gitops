@@ -5,3 +5,4 @@ resources:
   - sealed-secrets-charts.yaml
   - botkube-charts.yaml
   - bitnami-charts.yaml
+  - ingress-nginx-chart.yaml
