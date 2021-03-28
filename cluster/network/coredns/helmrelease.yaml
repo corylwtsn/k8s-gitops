@@ -24,6 +24,12 @@ spec:
     service:
       externalTrafficPolicy: Local
     servers:
+      - zones:
+        - zone: internal.corywatson.net.
+          scheme: dns://
+          # use_tcp: true
+        - zone: external.corywatson.net.
+          scheme: dns://
         port: 53
         plugins:
         - name: errors
