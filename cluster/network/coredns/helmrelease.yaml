@@ -18,11 +18,11 @@ spec:
   values:
     rbac:
       create: true
-    replicaCount: 2
+    replicaCount: 3
     isClusterService: false
     serviceType: LoadBalancer
     service:
-      externalTrafficPolicy: Local
+      externalTrafficPolicy: Cluster
     servers:
       - zones:
         - zone: .
