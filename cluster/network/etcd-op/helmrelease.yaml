@@ -17,4 +17,6 @@ spec:
   values:
     customResources:
       createEtcdClusterCRD: true
+    etcdCluster:
+      size: 1
     
