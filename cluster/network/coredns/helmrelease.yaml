@@ -22,7 +22,7 @@ spec:
     isClusterService: false
     serviceType: LoadBalancer
     service:
-      externalTrafficPolicy: Local
+      externalTrafficPolicy: Cluster
     servers:
       - zones:
         - zone: internal.corywatson.net.
