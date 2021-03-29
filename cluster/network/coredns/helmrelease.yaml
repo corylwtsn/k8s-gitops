@@ -25,7 +25,6 @@ spec:
       externalTrafficPolicy: Local
     servers:
       - zones:
-        - zone: .
         - zone: internal.corywatson.net.
           scheme: dns://
           # use_tcp: true
