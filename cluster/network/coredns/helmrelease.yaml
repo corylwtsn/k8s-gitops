@@ -18,13 +18,15 @@ spec:
   values:
     rbac:
       create: true
-    replicaCount: 1
+    replicaCount: 3
     isClusterService: false
     serviceType: LoadBalancer
     service:
       externalTrafficPolicy: Local
     servers:
       - zones:
+        - zone: .
+          scheme: dns://
         - zone: internal.corywatson.net.
           scheme: dns://
           # use_tcp: true
@@ -51,39 +53,17 @@ spec:
           parameters: 0.0.0.0:9153
         - name: forward
           parameters: . 208.67.222.222:53 208.67.220.220:53
+          configBlock: |-
+              except *.external.corywatson.net *.internal.corywatson.net
         - name: cache
           parameters: 30
         - name: loop
         - name: reload
         - name: loadbalance
         - name: log
-      - zones:
-        - zone: .
-          scheme: dns://
-        port: 53
-        plugins:
-        - name: errors
-        # Serves a /health endpoint on :8080, required for livenessProbe
-        - name: health
+        - name: etcd
+          parameters:  internal.corywatson.net external.corywatson.net
           configBlock: |-
-            lameduck 5s
-        # Serves a /ready endpoint on :8181, required for readinessProbe
-        - name: ready
-        # Required to query kubernetes API for data
-        - name: kubernetes
-          parameters: cluster.local in-addr.arpa ip6.arpa
-          configBlock: |-
-            pods insecure
-            fallthrough in-addr.arpa ip6.arpa
-            ttl 30
-        # Serves a /metrics endpoint on :9153, required for serviceMonitor
-        - name: prometheus
-          parameters: 0.0.0.0:9153
-        - name: forward
-          parameters: . 208.67.222.222:53 208.67.220.220:53
-        - name: cache
-          parameters: 30
-        - name: loop
-        - name: reload
-        - name: loadbalance
-        - name: log
+            stubzones
+            path /skydns
+            endpoint http://10.43.172.42:2379
