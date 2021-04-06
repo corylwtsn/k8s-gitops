@@ -1,0 +1,106 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: freenas-iscsi
+  namespace: kube-system
+spec:
+  chart:
+    spec:
+      chart: democratic-csi
+      version: 0.7.0
+      sourceRef:
+        kind: HelmRepository
+        name: democratic-csi-charts
+        namespace: flux-system
+  interval: 1h
+  valuesFrom:
+    - kind: Secret
+      name: nfs-secrets
+      valuesKey: user
+      targetPath: driver.config.httpConnection.username
+    - kind: Secret
+      name: nfs-secrets
+      valuesKey: user
+      targetPath: driver.config.sshConnection.username
+    - kind: Secret
+      name: nfs-secrets
+      valuesKey: password
+      targetPath: driver.config.httpConnection.password
+    - kind: Secret
+      name: nfs-secrets
+      valuesKey: password
+      targetPath: driver.config.sshConnection.password
+    - kind: Secret
+      name: nfs-secrets
+      valuesKey: host
+      targetPath: driver.config.httpConnection.host
+    - kind: Secret
+      name: nfs-secrets
+      valuesKey: host
+      targetPath: driver.config.sshConnection.host
+  values:
+    csiDriver:
+      name: "org.democratic-csi.iscsi"
+
+    storageClasses:
+    - name: freenas-iscsi-csi
+      defaultClass: false
+      reclaimPolicy: Delete
+      volumeBindingMode: Immediate
+      allowVolumeExpansion: true
+      parameters:
+        fsType: xfs
+
+    mountOptions: []
+
+    driver:
+      config:
+        driver: freenas-iscsi
+        instance_id:
+        httpConnection:
+          protocol: http
+          # host: ''
+          port: 80
+          # username: ''
+          # password: ''
+          allowInsecure: true
+          apiVersion: 2
+        sshConnection:
+          # host: ''
+          port: 22
+          #username: ''
+          # use either password or key
+          #password: ''
+        zfs:
+          # the example below is useful for TrueNAS 12
+          cli:
+            paths:
+              zfs: /usr/local/sbin/zfs
+              zpool: /usr/local/sbin/zpool
+              sudo: /usr/local/bin/sudo
+              chroot: /usr/sbin/chroot
+          datasetParentName: root/k8s/iscsi/v
+          detachedSnapshotsDatasetParentName: root/k8s/iscsi/s
+          zvolEnableReservation: false
+        iscsi:
+          targetPortal: "192.168.0.4:3260"
+          targetPortals: []
+          # leave empty to omit usage of -I with iscsiadm
+          interface:
+          namePrefix: csi-
+          nameSuffix: "-cluster"
+          # add as many as needed
+          targetGroups:
+            # get the correct ID from the "portal" section in the UI
+            - targetGroupPortalGroup: 1
+              # get the correct ID from the "initiators" section in the UI
+              targetGroupInitiatorGroup: 1
+              # None, CHAP, or CHAP Mutual
+              targetGroupAuthType: None
+              # get the correct ID from the "Authorized Access" section of the UI
+          extentInsecureTpc: true
+          extentXenCompat: false
+          extentDisablePhysicalBlocksize: true
+          extentBlocksize: 4096
+          extentRpm: "7200"
+          extentAvailThreshold: 0

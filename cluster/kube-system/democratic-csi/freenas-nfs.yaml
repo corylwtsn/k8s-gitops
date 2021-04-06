@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: democratic-csi-charts
         namespace: flux-system
-  interval: 1m0s
+  interval: 1h
   valuesFrom:
     - kind: Secret
       name: nfs-secrets
