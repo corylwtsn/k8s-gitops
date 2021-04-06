@@ -15,29 +15,33 @@ spec:
   interval: 1h
   valuesFrom:
     - kind: Secret
-      name: nfs-secrets
+      name: freenas-secrets
       valuesKey: user
       targetPath: driver.config.httpConnection.username
     - kind: Secret
-      name: nfs-secrets
+      name: freenas-secrets
       valuesKey: user
       targetPath: driver.config.sshConnection.username
     - kind: Secret
-      name: nfs-secrets
+      name: freenas-secrets
       valuesKey: password
       targetPath: driver.config.httpConnection.password
     - kind: Secret
-      name: nfs-secrets
+      name: freenas-secrets
       valuesKey: password
       targetPath: driver.config.sshConnection.password
     - kind: Secret
-      name: nfs-secrets
+      name: freenas-secrets
       valuesKey: host
       targetPath: driver.config.httpConnection.host
     - kind: Secret
-      name: nfs-secrets
+      name: freenas-secrets
       valuesKey: host
       targetPath: driver.config.sshConnection.host
+    - kind: Secret
+      name: freenas-secrets
+      valuesKey: iscsiTarget
+      targetPath: driver.config.iscsi.targetPortal
   values:
     csiDriver:
       name: "org.democratic-csi.iscsi"
@@ -89,7 +93,7 @@ spec:
           detachedSnapshotsDatasetParentName: root/k8s/iscsi/s
           zvolEnableReservation: false
         iscsi:
-          targetPortal: "{{ $driver.config.sshConnection.host }}:3260"
+          # targetPortal: "ip:3260"
           targetPortals: []
           # leave empty to omit usage of -I with iscsiadm
           interface:
