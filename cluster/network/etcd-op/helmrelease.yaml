@@ -16,5 +16,5 @@ spec:
       interval: 5m
   values:
     persistence:
-      storageClass: freenas-nfs-csi
+      storageClass: freenas-iscsi-csi
     
