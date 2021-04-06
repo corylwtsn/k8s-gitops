@@ -4,7 +4,7 @@ metadata:
   name: etcd
   namespace: network
 spec:
-  interval: 5m
+  interval: 1h
   chart:
     spec:
       chart: etcd
@@ -13,7 +13,7 @@ spec:
         kind: HelmRepository
         name: bitnami-charts
         namespace: flux-system
-      interval: 5m
+      interval: 1h
   values:
     persistence:
       storageClass: freenas-iscsi-csi
