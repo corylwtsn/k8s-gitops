@@ -1,20 +1,22 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: etcd
+  name: etcd-op
   namespace: network
 spec:
-  interval: 1h
+  interval: 5m
   chart:
     spec:
-      chart: etcd
-      version: 6.1.3
+      chart: etcd-operator
+      version: 0.11.2
       sourceRef:
         kind: HelmRepository
-        name: bitnami-charts
+        name: helm-stable
         namespace: flux-system
-      interval: 1h
+      interval: 5m
   values:
-    persistence:
-      storageClass: freenas-iscsi-csi
+    customResources:
+      createEtcdClusterCRD: true
+    etcdCluster:
+      size: 1
     

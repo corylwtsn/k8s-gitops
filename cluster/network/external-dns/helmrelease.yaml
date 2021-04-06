@@ -17,4 +17,4 @@ spec:
   values:
     provider: coredns
     coredns:
-      etcdEndpoints: "http://etcd:2379"
+      etcdEndpoints: "http://etcd-cluster-client:2379"
