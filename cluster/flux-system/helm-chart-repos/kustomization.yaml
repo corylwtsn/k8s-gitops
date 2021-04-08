@@ -8,3 +8,4 @@ resources:
   - bitnami-charts.yaml
   - ingress-nginx-chart.yaml
   - stable-charts.yaml
+  - minecraft-charts.yaml

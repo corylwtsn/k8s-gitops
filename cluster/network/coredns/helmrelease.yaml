@@ -66,4 +66,4 @@ spec:
           configBlock: |-
             stubzones
             path /skydns
-            endpoint http://10.43.172.42:2379
+            endpoint http://etcd-cluster-client:2379
