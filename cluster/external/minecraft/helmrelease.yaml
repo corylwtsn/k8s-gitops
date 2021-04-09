@@ -19,10 +19,10 @@ spec:
       eula: true
       pvp: true
       type: VANILLA
-      whitelist: valtoro 
+      whitelist: valtoro,biomonk3y,deathvanquished,obscurejenko,sillywabbitgames
+      motd: "Don't be a dick!"
       ops: valtoro
-      bukkitDownloadUrl: https://cdn.getbukkit.org/craftbukkit/craftbukkit-1.16.5.jar
-      worldSaveName: test-world
+      worldSaveName: The Whole World
       serviceType: LoadBalancer
       difficulty: hard
       externalTrafficPolicy: Cluster
