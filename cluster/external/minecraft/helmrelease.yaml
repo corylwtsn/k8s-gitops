@@ -30,6 +30,6 @@ spec:
       storageClass: freenas-iscsi-csi
       dataDir:
         enabled: true
-        Size: 1Gi
+        Size: 2Gi
     serviceAnnotations: 
        external-dns.alpha.kubernetes.io/hostname: minecraft.external.corywatson.net.
