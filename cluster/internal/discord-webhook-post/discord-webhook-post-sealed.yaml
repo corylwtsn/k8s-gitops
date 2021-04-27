@@ -1,0 +1,29 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: discord-webhook-post
+  namespace: internal
+spec:
+  encryptedData:
+    message: AgCOnFLFt2k5XrOeEnox7Vs4HPFnilFobxp5pRnu5iVprmvGkWRSnk74JUJOwkw14HrFHub6AaenddRWqzLAFs1jyMOJRRjaOgT51tGqAyuedVqfYYUHA11/CttbMS3/rmS/d5q2jBil7J0Yg0GKIIxxM+94OCId6abDWgec23hSM49aug8JtR+oh55SWrO/1sGymA4IpVGYwSVI7Soc6qvEHHCZo0wKL+qR95TBrDW5nqVq/507iJjGPbSsQG4Fh1Gg4Kq0QEsVJAqJJY1REggTGuJsMvCrelRFCttONj9QCtyGJgn4W4eCG8sLXIB64ZUXEeA7RbySrfdaF6vXaxmzFW4hR3g4Qsgna5ftVEwERCaaKV9PEn1Wt86v4flsnM9SN2h3KFNGMq5kYCBteL54mmNfChlSakwdha38Bxz9qYDPn20w+Pne7V2ZrnJ9QSkTdsredwp3EwtDIyqqVS0UbFV1Gxlw3WinubZZhcNFn0VuCI/a2ojvGmLVfKwC3eOwJxhadb3BYTusFe8dQhZZOPJCYSDWyveV6iXPECgQerafAapBQDOdTsrxKsDSWm8aDI0L9gai0DR5R8MkQjFZmVdvfyRlB6yFSPChFwHM21j9GfNLPKYBx1DlM0mrqA1t19nTY5guGn7hJ4lOWTMIITzp374vaqmenePGAqyfkWHOon9RabFWQQLdS0UrBXjHU28WFBHqe/dJ27idJyuG8CIiREcM/JXNxczu4uz2XQZE0jPGsNMaaWxMZLGfG6tQ/wLzPt5Mf6a6BVygeJgbLMtJF1ExXPp0KE6eXpK7AEnvSyoAsVbB13YQJBJoAhi2kM8YL7/yLBW5B+PbSwSruHBfPet/QtiIvd/xTwd+9IPDFBe3v+0INBuxkeNUIEzn
+    wehbook_url: AgCv62fBYTg2ZRJjBaZPpnUqbJBNdeXonu89oITBx92nXQEJE1wIkNjzIGB3/xASyRqM+9S8I9vWaLnOK7rs72vA8ZgQ8H/1wX/cGsW3v/uqiyqDPDCnFFjBW2dfMbZ9ncG192Q90ZC5zWBQqPybpJW14kp8GHm76rGV9Tl/mZO8vcn5kZal96zf9TJJeiOmDKqNhmdRaesDGxE/vQddzDWXJjHBhhKE/ntuDj28Ir+90plJTRBVkqSZWNzgPclnEF9983M1oICKynWxNXkf+rOMSZAQTyo1VLn1pE2Au6VjoWjHxNdIBuoBdrg7M1poRhoCJd/ujol1AQVAJlKHYijKRf+BUHPIDLKrg+76maI6kACy5L6o13y0nE3PLmZFhVtwFtSSozJCkCA93pyPoMxX9bWZBb0T95XDxo/sJOTV1FYey/yViDiGVeLiKEItXG82iPxCKMshWGwhi4EF7IBaWcMaXYi2blUWQQbl1623HK9cnokm+cEkTlzlri7tiPFGBxncLjD4DkG4dz6rIqbBAKPVchdXvee2VMUmlkrEPsnpvuInGx85X88/tN/C87OE1F7QjRDh6sWIsBZvcJKQaCTPNxMtwuxgbd9PuSzt7YK2ND40R+5uQhonP6GNlvNIrw947UJx8KWnq3tCWbi/mxHSijogt7kfohbSXF5u/K3jmT4i/laVBgSb1zb9hC3jn1Yey7HtIWs08apIT3KPRL7zz5tMfFO+Y8RaTF5qF7/4JrLiEE4F5BociJrMa4P3G6V8w1f2lBEgKmtmmyKYmRcl2do5pzMnr+Uapwa+swuPp6g9KROAqD8hGRX39vGVtqiEf5/8sbJKwPJmOH7S248FXobbJDk=
+  template:
+    metadata:
+      creationTimestamp: null
+      managedFields:
+      - apiVersion: v1
+        fieldsType: FieldsV1
+        fieldsV1:
+          f:data:
+            .: {}
+            f:message: {}
+            f:wehbook_url: {}
+          f:type: {}
+        manager: kubectl-create
+        operation: Update
+        time: "2021-04-27T04:27:18Z"
+      name: discord-webhook-post
+      namespace: internal
+    type: Opaque
+

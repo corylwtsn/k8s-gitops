@@ -1,0 +1,30 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: discord-webhook-post
+  namespace: internal
+spec:
+  schedule: "0 12 * * 1"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: discord-webhook-post
+              image: ghcr.io/corylwtsn/discord-webhook-post:v1.0.0
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: MESSAGE
+                  valueFrom:
+                    secretKeyRef:
+                      name: discord-webhook-post
+                      key: message
+                - name: WEBHOOK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: discord-webhook-post
+                      key: wehbook_url
+          restartPolicy: Never
+
+    
