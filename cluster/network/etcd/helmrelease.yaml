@@ -23,5 +23,5 @@ spec:
       enabled: true
       pvc:
         size: 1Gi
-        storageClassName: freenas-iscsi-csi
+        storageClassName: freenas-nfs-csi
     
