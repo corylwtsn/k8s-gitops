@@ -18,10 +18,9 @@ spec:
     persistence:
       enabled: true
       storageClass: freenas-iscsi-csi
-      size: 1Gi
     disasterRecovery:
       enabled: true
       pvc:
-        size: 1Gi
+        size: 2Gi
         storageClassName: freenas-nfs-csi
     
