@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: minecraft
-      version: 3.1.3
+      version: 3.2.0
       sourceRef:
         kind: HelmRepository
         name: minecraft-charts
@@ -18,9 +18,10 @@ spec:
     minecraftServer:
       eula: true
       pvp: true
+      version: "1.17"
       type: VANILLA
       whitelist: valtoro,biomonk3y,deathvanquished,obscurejenko,sillywabbitgames
-      motd: "Don't be a dick!"
+      motd: "Hello World!"
       ops: valtoro
       worldSaveName: The Whole World
       serviceType: LoadBalancer
