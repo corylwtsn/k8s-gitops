@@ -1,69 +1,65 @@
-# apiVersion: helm.toolkit.fluxcd.io/v2beta1
-# kind: HelmRelease
-# metadata:
-#   name: coredns
-#   namespace: network
-# spec:
-#   interval: 5m
-#   releaseName: external
-#   chart:
-#     spec:
-#       chart: coredns
-#       version: 1.15.0
-#       sourceRef:
-#         kind: HelmRepository
-#         name: coredns-charts
-#         namespace: flux-system
-#       interval: 5m
-#   values:
-#     rbac:
-#       create: true
-#     replicaCount: 2
-#     isClusterService: false
-#     serviceType: LoadBalancer
-#     service:
-#       externalTrafficPolicy: Cluster
-#     servers:
-#       - zones:
-#         - zone: .
-#           scheme: dns://
-#         - zone: internal.corywatson.net.
-#           scheme: dns://
-#           # use_tcp: true
-#         - zone: external.corywatson.net.
-#           scheme: dns://
-#         port: 53
-#         plugins:
-#         - name: errors
-#         # Serves a /health endpoint on :8080, required for livenessProbe
-#         - name: health
-#           configBlock: |-
-#             lameduck 5s
-#         # Serves a /ready endpoint on :8181, required for readinessProbe
-#         - name: ready
-#         # Required to query kubernetes API for data
-#         - name: kubernetes
-#           parameters: cluster.local in-addr.arpa ip6.arpa
-#           configBlock: |-
-#             pods insecure
-#             fallthrough in-addr.arpa ip6.arpa
-#             ttl 30
-#         # Serves a /metrics endpoint on :9153, required for serviceMonitor
-#         - name: prometheus
-#           parameters: 0.0.0.0:9153
-#         - name: forward
-#           parameters: . 208.67.222.222:53 208.67.220.220:53
-#           configBlock: |-
-#               except *.external.corywatson.net *.internal.corywatson.net
-#         - name: cache
-#           parameters: 30
-#         - name: loop
-#         - name: reload
-#         - name: loadbalance
-#         - name: log
-#         - name: etcd
-#           parameters:  internal.corywatson.net external.corywatson.net
-#           configBlock: |-
-#             stubzones
-#             path /skydns
-#             endpoint http://etcd-cluster-client:2379
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: coredns
+  namespace: network
+spec:
+  interval: 5m
+  releaseName: external
+  chart:
+    spec:
+      chart: coredns
+      version: 1.15.0
+      sourceRef:
+        kind: HelmRepository
+        name: coredns-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    rbac:
+      create: true
+    replicaCount: 2
+    isClusterService: false
+    serviceType: LoadBalancer
+    service:
+      externalTrafficPolicy: Cluster
+    servers:
+      - zones:
+        - zone: .
+          scheme: dns://
+        - zone: internal.corywatson.net.
+          scheme: dns://
+          # use_tcp: true
+        - zone: external.corywatson.net.
+          scheme: dns://
+        port: 53
+        plugins:
+        - name: errors
+        # Serves a /health endpoint on :8080, required for livenessProbe
+        - name: health
+          configBlock: |-
+            lameduck 5s
+        # Serves a /ready endpoint on :8181, required for readinessProbe
+        - name: ready
+        # Serves a /metrics endpoint on :9153, required for serviceMonitor
+        - name: prometheus
+          parameters: 0.0.0.0:9153
+        - name: forward
+          parameters: . 208.67.222.222:53 208.67.220.220:53
+          configBlock: |-
+              except *.external.corywatson.net *.internal.corywatson.net
+        - name: cache
+          parameters: 30
+        - name: loop
+        - name: loadbalance
+        - name: log
+        - name: etcd
+          parameters:  internal.corywatson.net external.corywatson.net
+          configBlock: |-
+            stubzones
+            path /skydns
+            endpoint https://10.0.99.50:2379
+            tls /etc/coredns/tls/etcd/server-client.crt /etc/coredns/tls/etcd/server-client.key /etc/coredns/tls/etcd/server-ca.crt
+    extraSecrets: 
+      - name: etcd-cert-secrets
+        mountPath: /etc/coredns/tls/etcd
