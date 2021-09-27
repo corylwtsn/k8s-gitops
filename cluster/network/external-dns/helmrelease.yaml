@@ -17,4 +17,10 @@ spec:
   values:
     provider: coredns
     coredns:
-      etcdEndpoints: "http://etcd:2379"
+      etcdEndpoints: "https://10.0.99.50:2379"
+      etcdTLS:
+        enabled: true
+        secretName: etcd-cert-secrets
+        caFilename: server-ca.crt
+        certFilename: server-client.crt
+        keyFilename: server-client.key    
