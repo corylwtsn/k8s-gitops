@@ -46,7 +46,7 @@ spec:
       targetPath: authentik.secret_key
   values:
     image:
-        tag: 2021.9.1
+        tag: 2021.9.3
     redis:
       enabled: true
     postgresql:
