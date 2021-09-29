@@ -64,6 +64,7 @@ spec:
       tls:
         - hosts:
           - auth.internal.corywatson.net
+          - auth.external.corywatson.net
           secretName: auth-cert
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
