@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cloudflared-ingress-tunnel
+  name: cloudflared-ingress-tunnel
+  namespace: network
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudflared-ingress-tunnel
+  template:
+    metadata:
+      labels:
+        app: cloudflared-ingress-tunnel
+    spec:
+      containers:
+      - image: cloudflare/cloudflared:2021.9.2
+        name: cloudflared
+        args:
+          - "tunnel"
+          - "run"
+        volumeMounts:
+          - mountPath: /etc/cloudflared
+            name: cloudflared-tunnel-config
+          - mountPath: /etc/cloudflared/creds/
+            name: cloudflared-tunnel-creds
+      volumes:
+        - name: cloudflared-tunnel-config
+          configMap:
+            name: cloudflared-tunnel-config
+        - name: cloudflared-tunnel-creds
+          secret:
+            secretName: cloudflared-tunnel-file
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloudflared-tunnel-config
+  namespace: network
+data:
+  config.yaml: |-
+    tunnel: 7ee38124-518c-45fd-9a9a-066b8d2bb344
+    credentials-file: /etc/cloudflared/creds/creds.json
+
+    ingress:
+      - hostname: auth.corywatson.net
+        service: https://auth.external.corywatson.net:443
+      - service: http_status:404
+
