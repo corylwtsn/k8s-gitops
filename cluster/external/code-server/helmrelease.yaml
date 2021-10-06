@@ -31,5 +31,8 @@ spec:
       - host: dev.external.corywatson.net
         paths:
         - /
+      - host: dev.corywatson.net
+        paths:
+        - /
     persistence:
       storageClass: freenas-iscsi-csi
