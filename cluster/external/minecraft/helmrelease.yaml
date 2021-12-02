@@ -18,7 +18,7 @@ spec:
     minecraftServer:
       eula: true
       pvp: true
-      version: "1.17"
+      version: "1.18"
       type: VANILLA
       whitelist: valtoro,biomonk3y,deathvanquished,obscurejenko,sillywabbitgames
       motd: "Hello World!!"
