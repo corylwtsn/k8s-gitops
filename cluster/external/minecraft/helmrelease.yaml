@@ -20,7 +20,7 @@ spec:
       pvp: true
       version: "1.18"
       type: VANILLA
-      whitelist: valtoro,biomonk3y,deathvanquished,obscurejenko,sillywabbitgames
+      whitelist: valtoro,biomonk3y,deathvanquished,obscurejenko,sillywabbitgames,Ink_Walrus
       motd: "Hello World!!"
       ops: valtoro
       worldSaveName: The Whole World
