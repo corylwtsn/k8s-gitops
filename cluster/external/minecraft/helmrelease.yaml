@@ -8,24 +8,29 @@ spec:
   chart:
     spec:
       chart: minecraft
-      version: 3.2.0
+      version: 3.6.2
       sourceRef:
         kind: HelmRepository
         name: minecraft-charts
         namespace: flux-system
       interval: 5m
   values:
+    resources:
+      memory: 1536Mi
     minecraftServer:
       eula: true
       pvp: true
-      version: "1.18"
+      version: "1.18.1"
       type: VANILLA
-      whitelist: valtoro,biomonk3y,deathvanquished,obscurejenko,sillywabbitgames,Ink_Walrus
+      level-seed: "-5984810188865991073"
+      whitelist:  valtoro,biomonk3y,deathvanquished,obscurejenko,sillywabbitgames,Ink_Walrus,Odd_ish22
       motd: "Hello World!!"
       ops: valtoro
       worldSaveName: The Whole World
       serviceType: LoadBalancer
+      spawn-protection: 0
       difficulty: hard
+      memory: 1536M
       externalTrafficPolicy: Cluster
     persistence:
       storageClass: freenas-iscsi-csi
