@@ -16,7 +16,8 @@ spec:
       interval: 5m
   values:
     resources:
-      memory: 1536Mi
+      requests:
+        memory: 1536Mi
     minecraftServer:
       eula: true
       pvp: true
