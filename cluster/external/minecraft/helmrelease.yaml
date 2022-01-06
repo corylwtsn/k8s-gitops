@@ -24,7 +24,7 @@ spec:
       version: "1.18.1"
       type: VANILLA
       level-seed: "-5984810188865991073"
-      whitelist:  valtoro,biomonk3y,deathvanquished,obscurejenko,sillywabbitgames,Ink_Walrus,Odd_ish22
+      whitelist:  valtoro,biomonk3y,deathvanquished,obscurejenko,sillywabbitgames,Ink_Walrus,Odd_ish22,hannahjc
       motd: "Hello World!!"
       ops: valtoro
       worldSaveName: The Whole World
