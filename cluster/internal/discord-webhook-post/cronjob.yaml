@@ -18,13 +18,13 @@ spec:
                 - name: MESSAGE
                   valueFrom:
                     secretKeyRef:
-                      name: discord-webhook-post
-                      key: message
+                      name: discord-webhook
+                      key: MESSAGE
                 - name: WEBHOOK_URL
                   valueFrom:
                     secretKeyRef:
-                      name: discord-webhook-post
-                      key: wehbook_url
+                      name: discord-webhook
+                      key: WEBHOOK_URL
           restartPolicy: Never
 
     

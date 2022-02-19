@@ -1,0 +1,19 @@
+apiVersion: secrets.doppler.com/v1alpha1
+kind: DopplerSecret
+metadata:
+  name: discord-webhook # DopplerSecret Name
+  namespace: doppler
+spec:
+  tokenSecret: # Kubernetes service token secret (namespace defaults to doppler-operator-system)
+    name: doppler-token-secret
+    namespace: doppler
+  managedSecret: # Kubernetes managed secret (will be created if does not exist)
+    name: discord-webhook
+    namespace: internal # Should match the namespace of deployments that will use the secret
+
+
+
+
+kubectl create secret generic doppler-discord-webhook \
+  --namespace doppler \
+  --from-literal=serviceToken=dp.st.prd.Xk64Mc8s6iOMO2EcqT1pLLbCwFWJjc0kuy59EYNdV4j

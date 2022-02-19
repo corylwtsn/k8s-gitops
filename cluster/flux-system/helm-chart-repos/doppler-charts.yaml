@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: doppler-charts
+  namespace: flux-system
+spec:
+  interval: 24h
+  url: https://helm.doppler.com
+  timeout: 3s
