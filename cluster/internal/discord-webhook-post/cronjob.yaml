@@ -26,5 +26,3 @@ spec:
                       name: discord-webhook
                       key: WEBHOOK_URL
           restartPolicy: Never
-
-    

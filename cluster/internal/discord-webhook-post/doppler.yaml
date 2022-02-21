@@ -5,7 +5,7 @@ metadata:
   namespace: doppler
 spec:
   tokenSecret: # Kubernetes service token secret (namespace defaults to doppler-operator-system)
-    name: doppler-token-secret
+    name: doppler-discord-webhook
     namespace: doppler
   managedSecret: # Kubernetes managed secret (will be created if does not exist)
     name: discord-webhook
