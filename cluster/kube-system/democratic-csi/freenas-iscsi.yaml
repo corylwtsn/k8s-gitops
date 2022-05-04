@@ -45,7 +45,7 @@ spec:
   values:
     csiDriver:
       name: "org.democratic-csi.iscsi"
-      version: 1.5.0
+      version: 1.6.3
 
     storageClasses:
     - name: freenas-iscsi-csi
