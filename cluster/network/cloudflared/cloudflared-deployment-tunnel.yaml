@@ -27,6 +27,8 @@ spec:
             name: cloudflared-tunnel-config
           - mountPath: /etc/cloudflared/creds/
             name: cloudflared-tunnel-creds
+      nodeSelector:
+        beta.kubernetes.io/arch: "amd64"
       volumes:
         - name: cloudflared-tunnel-config
           configMap:
