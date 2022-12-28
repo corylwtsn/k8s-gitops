@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: virsing
+  name: vrising
+  namespace: external
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vrising
+  template:
+    metadata:
+      labels:
+        app: vrising
+    spec:
+      initContainers:
+        - name: pv-chown
+          image: busybox
+          imagePullPolicy: IfNotPresent
+          command:
+            - "sh"
+            - "-c"
+            - "chown -R 1000:1000 /home/steam/data"
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+            - mountPath: /home/steam/data
+              name: vrising-data
+      containers:
+      - image: ghcr.io/corylwtsn/vrising:0.0.1
+        name: vrising
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - mountPath: /home/steam/data
+            name: vrising-data
+          - mountPath: /home/steam/data/Settings
+            name: vrising-settings
+        ports:
+          - containerPort: 27015
+            protocol: UDP
+          - containerPort: 27016
+            protocol: UDP
+        resources:
+          requests:
+            memory: 1Gi
+            cpu: 1000m
+          limits: 
+            memory: 2Gi
+            cpu: 2000m
+      volumes:
+        - name: vrising-data
+          persistentVolumeClaim:
+            claimName: vrising-data
+        - name: vrising-settings
+          secret:
+            secretName: vrising-settings
+          
+
