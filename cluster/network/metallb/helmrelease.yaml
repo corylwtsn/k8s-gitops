@@ -17,7 +17,7 @@ spec:
   values:
     controller:
       image:
-        tag: v0.9.5
+        tag: v0.13.7
     speaker:
       image:
-        tag: v0.9.5
+        tag: v0.13.7
