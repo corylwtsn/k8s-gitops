@@ -8,28 +8,16 @@ spec:
   chart:
     spec:
       chart: metallb
-      version: 2.3.2
+      version: 0.13.7
       sourceRef:
         kind: HelmRepository
-        name: bitnami-charts
+        name: metallb-charts
         namespace: flux-system
       interval: 10m
   values:
     controller:
       image:
-        repository: metallb/controller
         tag: v0.9.5
     speaker:
       image:
-        repository: metallb/speaker
         tag: v0.9.5
-    configInline:
-      peers:
-      - peer-address: 10.0.99.1
-        peer-asn: 64501
-        my-asn: 64500
-      address-pools:
-        - name: default
-          protocol: bgp
-          addresses:
-            - 192.168.0.0/24

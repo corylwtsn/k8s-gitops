@@ -9,4 +9,5 @@ resources:
   - ingress-nginx-chart.yaml
   - stable-charts.yaml
   - minecraft-charts.yaml
+  - metallb-charts.yaml
   - openfaas-charts.yaml

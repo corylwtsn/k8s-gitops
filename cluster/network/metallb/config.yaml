@@ -1,0 +1,34 @@
+apiVersion: metallb.io/v1beta2
+kind: BGPPeer
+metadata:
+  name: peer1
+  namespace: network
+spec:
+  holdTime: 1m30s
+  keepaliveTime: 0s
+  myASN: 64500
+  passwordSecret: {}
+  peerASN: 64501
+  peerAddress: 10.0.99.1
+status: {}
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: default
+  namespace: network
+spec:
+  addresses:
+  - 192.168.0.0/24
+status: {}
+---
+apiVersion: metallb.io/v1beta1
+kind: BGPAdvertisement
+metadata:
+  name: bgpadvertisement1
+  namespace: network
+spec:
+  ipAddressPools:
+  - default
+status: {}
+---
