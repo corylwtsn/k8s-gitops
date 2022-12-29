@@ -17,7 +17,7 @@ spec:
   values:
     provider: coredns
     coredns:
-      etcdEndpoints: "https://10.0.99.100:2379"
+      etcdEndpoints: "https://10.0.99.50:2379,https://10.0.99.51:2379,https://10.0.99.52:2379"
       etcdTLS:
         enabled: true
         secretName: etcd-cert-secrets
