@@ -1,0 +1,12 @@
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: nas-a-record
+  namespace: network
+spec:
+  endpoints:
+  - dnsName: nas.internal.corywatson.net
+    recordTTL: 60
+    recordType: A
+    targets: 
+    - 10.0.40.50

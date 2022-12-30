@@ -15,6 +15,9 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    domainFilters:
+     - internal.corywatson.net
+     - external.corywatson.net
     provider: coredns
     coredns:
       etcdEndpoints: "https://10.0.99.50:2379,https://10.0.99.51:2379,https://10.0.99.52:2379"
@@ -23,4 +26,12 @@ spec:
         secretName: etcd-cert-secrets
         caFilename: server-ca.crt
         certFilename: server-client.crt
-        keyFilename: server-client.key    
+        keyFilename: server-client.key
+    crd: 
+      create: true
+      apiVersion: externaldns.k8s.io/v1alpha1
+      kind: DNSEndpoint
+    sources: 
+      - service
+      - ingress
+      - crd

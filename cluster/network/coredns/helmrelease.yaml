@@ -124,7 +124,7 @@ spec:
           configBlock: |-
             stubzones
             path /skydns
-            endpoint https://10.0.99.50:2379
+            endpoint https://10.0.99.50:2379 https://10.0.99.51:2379 https://10.0.99.52:2379
             tls /etc/coredns/tls/etcd/server-client.crt /etc/coredns/tls/etcd/server-client.key /etc/coredns/tls/etcd/server-ca.crt
     extraSecrets: 
       - name: etcd-cert-secrets
