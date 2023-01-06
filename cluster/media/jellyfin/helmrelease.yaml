@@ -9,7 +9,6 @@ spec:
     spec:
       chart: app-template
       version: 1.2.0
-      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -58,19 +57,12 @@ spec:
       config:
         enabled: true
         existingClaim: jellyfin-config
-      nfs-nas-movies:
+      media:
         enabled: true
-        mountPath: /storage/media/movies
-        path: /mnt/root/media/movies
+        mountPath: /storage/media
+        path: /mnt/root/media
         server: 10.0.40.50
-        type: nfs
-      nfs-nas-shows:
-        enabled: true
-        mountPath: /storage/media/shows
-        path: /mnt/root/media/shows
-        server: 10.0.40.50
-        type: nfs
-      
+        type: nfs 
       transcode:
         enabled: true
         type: emptyDir
