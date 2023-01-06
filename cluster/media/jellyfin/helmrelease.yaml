@@ -43,6 +43,8 @@ spec:
           - hosts:
               - watch.internal.corywatson.net
             secretName: jellfyin-ingress-cert
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
