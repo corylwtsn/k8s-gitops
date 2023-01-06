@@ -15,6 +15,12 @@ spec:
         name: jetstack-charts
         namespace: flux-system
       interval: 5m
+  
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+
   values:
     installCRDS: true
     extraArgs:
