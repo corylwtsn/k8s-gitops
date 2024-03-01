@@ -63,6 +63,7 @@ spec:
     extraSecrets: 
       - name: etcd-cert-secrets
         mountPath: /etc/coredns/tls/etcd
+        defaultMode: 420
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
@@ -129,3 +130,4 @@ spec:
     extraSecrets: 
       - name: etcd-cert-secrets
         mountPath: /etc/coredns/tls/etcd
+        defaultMode: 420
