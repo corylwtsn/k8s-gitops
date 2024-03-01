@@ -6,7 +6,7 @@ metadata:
 spec:
   resources:
     requests:
-      storage: 1Gi
+      storage: 3Gi
   volumeMode: Filesystem
   storageClassName: freenas-iscsi-csi
   accessModes:
