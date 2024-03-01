@@ -17,7 +17,7 @@ spec:
         app: cloudflared-ingress-tunnel
     spec:
       containers:
-      - image: cloudflare/cloudflared:2021.9.2
+      - image: cloudflare/cloudflared:2024.2.1
         name: cloudflared
         args:
           - "tunnel"
@@ -28,7 +28,7 @@ spec:
           - mountPath: /etc/cloudflared/creds/
             name: cloudflared-tunnel-creds
       nodeSelector:
-        beta.kubernetes.io/arch: "amd64"
+        kubernetes.io/arch: "amd64"
       volumes:
         - name: cloudflared-tunnel-config
           configMap:
