@@ -1,0 +1,118 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: immich
+  namespace: media
+spec:
+  chart:
+    spec:
+      chart: immich
+      version: 0.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: immich-charts
+        namespace: flux-system
+  interval: 30m
+  values:
+    env:
+      REDIS_HOSTNAME: '{{ printf "%s-redis-master" .Release.Name }}'
+      DB_HOSTNAME: "{{ .Release.Name }}-postgresql"
+      DB_USERNAME: "{{ .Values.postgresql.global.postgresql.auth.username }}"
+      DB_DATABASE_NAME: "{{ .Values.postgresql.global.postgresql.auth.database }}"
+      # -- You should provide your own secret outside of this helm-chart and use `postgresql.global.postgresql.auth.existingSecret` to provide credentials to the postgresql instance
+      DB_PASSWORD: "{{ .Values.postgresql.global.postgresql.auth.password }}"
+      IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
+
+    image:
+      tag: v1.97.0@sha256:d6820874de49c972e7a3421fa53776bef18d4a41b78af931fd50827298ee913c
+
+    immich:
+      persistence:
+        # Main data store for all photos shared between different components.
+        library:
+          # Automatically creating the library volume is not supported by this chart
+          # You have to specify an existing PVC to use
+          existingClaim: immich-storage
+
+    # Dependencies
+
+    postgresql:
+      enabled: true
+      image:
+        repository: tensorchord/pgvecto-rs
+        tag: pg14-v0.2.0
+      global:
+        postgresql:
+          auth:
+            existingSecret: immich-postgresql
+            database: immich
+            username: immich
+      primary:
+        initdb:
+          scripts:
+            create-extensions.sql: |
+              CREATE EXTENSION cube;
+              CREATE EXTENSION earthdistance;
+              CREATE EXTENSION vectors;
+
+    redis:
+      enabled: true
+      architecture: standalone
+      auth:
+        enabled: false
+
+    # Immich components
+
+    server:
+      enabled: true
+      image:
+        repository: ghcr.io/immich-app/immich-server
+        pullPolicy: IfNotPresent
+      
+      ingress:
+        main:
+          enabled: true
+          ingressClassName: "nginx"
+          annotations:
+            # proxy-body-size is set to 0 to remove the body limit on file uploads
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
+            cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          hosts:
+            - host: photos.internal.corywatson.net
+              paths:
+                - path: "/"
+            - host: photos.external.corywatson.net
+              paths:
+                - path: "/"
+            - host: photos.corywatson.net
+              paths:
+                - path: "/"
+          tls:
+            - hosts:
+                - photos.internal.corywatson.net
+                - photos.external.corywatson.net
+                - photos.corywatson.net
+              secretName: immich-ingress-cert
+
+    microservices:
+      enabled: true
+      image:
+        repository: ghcr.io/immich-app/immich-server
+        pullPolicy: IfNotPresent
+
+    machine-learning:
+      enabled: true
+      image:
+        repository: ghcr.io/immich-app/immich-machine-learning
+        pullPolicy: IfNotPresent
+        tag: v1.97.0@sha256:5b5c3e6bb7bcba2cb5f1e68bf504dffd9d6d05984de9d7b3f1a4c219f72441a9
+      env:
+        TRANSFORMERS_CACHE: /cache
+      persistence:
+        cache:
+          enabled: true
+          size: 10Gi
+          type: pvc
+          accessMode: ReadWriteOnce
+          storageClass: freenas-iscsi-csi
