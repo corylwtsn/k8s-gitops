@@ -18,7 +18,7 @@ spec:
     spec:
       initContainers:
         - name: pv-chown
-          image: busybox
+          image: busybox@sha256:6d9ac9237a84afe1516540f40a0fafdc86859b2141954b4d643af7066d598b74
           imagePullPolicy: IfNotPresent
           command:
             - "sh"
@@ -30,7 +30,7 @@ spec:
             - mountPath: /home/steam/data
               name: vrising-data
       containers:
-      - image: ghcr.io/corylwtsn/vrising:0.0.1
+      - image: ghcr.io/corylwtsn/vrising:0.0.1@sha256:aa5f76e841900a75d62fa9dfc703627f6c327f4c7d0e15e38a3ebf9e19b7a054
         name: vrising
         imagePullPolicy: IfNotPresent
         volumeMounts:
