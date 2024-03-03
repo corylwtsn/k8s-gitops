@@ -42,6 +42,8 @@ spec:
     csiDriver:
       name: "org.democratic-csi.nfs"
       version: 1.4.0
+      attachRequired: false
+
 
     storageClasses:
     - name: freenas-nfs-csi
@@ -51,11 +53,12 @@ spec:
       allowVolumeExpansion: true
       parameters:
         fsType: nfs
-
       mountOptions:
       - noatime
       - nfsvers=4
-
+    controller:
+      externalAttacher:
+        enabled: false
     driver:
       config:
         driver: freenas-nfs
