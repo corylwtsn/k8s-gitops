@@ -46,6 +46,7 @@ spec:
     csiDriver:
       name: "org.democratic-csi.iscsi"
       version: 1.4.0
+      attachRequired: false
 
     storageClasses:
     - name: freenas-iscsi-csi
@@ -63,7 +64,9 @@ spec:
       node-stage-secret:
       node-publish-secret:
       controller-expand-secret:
-
+    controller:
+      externalAttacher:
+        enabled: false
     driver:
       config:
         driver: freenas-iscsi
