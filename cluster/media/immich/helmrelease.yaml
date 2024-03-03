@@ -41,7 +41,7 @@ spec:
       enabled: true
       image:
         repository: tensorchord/pgvecto-rs
-        tag: pg14-v0.2.0
+        tag: pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
       global:
         postgresql:
           auth:

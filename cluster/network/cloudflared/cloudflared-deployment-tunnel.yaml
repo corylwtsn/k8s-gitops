@@ -17,7 +17,7 @@ spec:
         app: cloudflared-ingress-tunnel
     spec:
       containers:
-      - image: cloudflare/cloudflared:2024.2.1
+      - image: cloudflare/cloudflared:2024.2.1@sha256:60e94a8669dccbe461b6913ce33ab759104334220b49042ec03cfca62a2f01e7
         name: cloudflared
         args:
           - "tunnel"
