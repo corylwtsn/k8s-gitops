@@ -1,0 +1,84 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: renovate
+  namespace: internal
+spec:
+  chart:
+    spec:
+      chart: renovate
+      version: 37.224.2
+      sourceRef:
+        kind: HelmRepository
+        name: renovate-charts
+        namespace: flux-system
+  interval: 30m
+  values:
+    cronjob:
+      # -- Schedules the job to run using cron notation
+      schedule: '0 2 * * *'  # At 01:00 every day
+      # -- You can specify a time zone for a CronJob by setting timeZone to the name of a valid time zone. (starting with k8s 1.27) <https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones>
+      timeZone: 'America/New_York'  # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for valid names
+      # -- If it is set to true, all subsequent executions are suspended. This setting does not apply to already started executions.
+      suspend: false
+      # -- Annotations to set on the cronjob
+
+    pod:
+      # -- Annotations to set on the pod
+      annotations: {}
+      # -- Labels to set on the pod
+      labels: {}
+
+    image:
+      # -- Registry to pull image from
+      registry: ghcr.io
+      # -- Image name to pull
+      repository: renovatebot/renovate
+      # -- Renovate image tag to pull
+      tag: 37.224.2
+      # -- "IfNotPresent" to pull the image if no image with the specified tag exists on the node, "Always" to always pull the image or "Never" to try and use pre-pulled images
+      pullPolicy: IfNotPresent
+
+    # -- Secret to use to pull the image from the repository
+    imagePullSecrets: {}
+
+    renovate:
+      # -- Custom exiting global renovate config
+      existingConfigFile: ''
+      # -- Inline global renovate config.json
+      config: |
+        {
+          "platform": "github",
+          "repositories": ["corylwtsn/k8s-gitops"]
+        }
+
+      # -- Options related to persistence
+      persistence:
+        cache:
+          # -- Allow the cache to persist between runs
+          enabled: false
+          # -- Storage class of the cache PVC
+          storageClass: "freenas-iscsi-csi"
+          # -- Storage size of the cache PVC
+          storageSize: "512Mi"
+
+    redis:
+      # Configuration for a Redis subchart. Additional documentation at
+      # https://github.com/bitnami/charts/tree/master/bitnami/redis
+
+      # -- Enable the Redis subchart?
+      enabled: true
+
+      # -- Override the prefix of the redisHost
+      nameOverride: ''
+
+      # -- Disable replication by default
+      architecture: standalone
+
+      auth:
+        # -- Don't require a password by default
+        enabled: false
+    envFrom:
+      - secretRef: 
+          name: renovate-github-token
