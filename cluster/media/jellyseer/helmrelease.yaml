@@ -1,0 +1,56 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: jellyseer
+  namespace: media
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  interval: 30m
+  maxHistory: 3
+  values:
+    image:
+      repository: fallenbagel/jellyseerr
+      tag: 1.7.0
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 100
+
+    env:
+      TZ: America/Chicgao
+      LOG_LEVEL: DEBUG
+    service:
+      main:
+        ports:
+          http:
+            port: 5055
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        hosts:
+          - host: "jellyseer.internal.corywatson.net"
+            paths:
+              - path: /
+        tls:
+          - hosts:
+              - "jellyseer.internal.corywatson.net"
+            secretName: jellyseer-ingress-cert
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"       
+    persistence:
+      config:
+        enabled: true
+        existingClaim: jellyseer-config
+        mountPath: /app/config
