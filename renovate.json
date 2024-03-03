@@ -16,6 +16,6 @@
   "helm-values": {
     "fileMatch": [
       "(^|/)cluster/.+\\.ya?ml$"
-    ],
+    ]
   }
 }
