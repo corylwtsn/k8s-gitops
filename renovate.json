@@ -1,7 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended",
     "config:best-practices",
     "docker:enableMajor",
     ":timezone(America/New_York)"
@@ -20,5 +19,6 @@
     "fileMatch": [
       "(^|/)cluster/.+\\.ya?ml$"
     ]
-  }
+  },
+  "prHourlyLimit": 10
 }
