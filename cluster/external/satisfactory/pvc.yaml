@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: satisfactory-data
+  namespace: external
+spec:
+  resources:
+    requests:
+      storage: 20Gi
+  volumeMode: Filesystem
+  storageClassName: freenas-iscsi-csi
+  accessModes:
+    - ReadWriteOnce
