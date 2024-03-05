@@ -79,19 +79,15 @@ spec:
             nginx.ingress.kubernetes.io/proxy-body-size: "0"
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
           hosts:
-            - host: photos.internal.corywatson.net
+            - host: photos.internal.wat.sn
               paths:
                 - path: "/"
-            - host: photos.external.corywatson.net
-              paths:
-                - path: "/"
-            - host: photos.corywatson.net
+            - host: photos.wat.sn
               paths:
                 - path: "/"
           tls:
             - hosts:
-                - photos.internal.corywatson.net
-                - photos.external.corywatson.net
+                - photos.internal.wat.sn
                 - photos.corywatson.net
               secretName: immich-ingress-cert
 

@@ -49,10 +49,8 @@ data:
 
     ingress:
       - hostname: auth.corywatson.net
-        service: https://auth.external.corywatson.net:443
-      - hostname: dev.corywatson.net
-        service: https://dev.external.corywatson.net:443
+        service: https://auth.internal.wat.sn:443
       - hostname: photos.corywatson.net
-        service: https://photos.external.corywatson.net:443
+        service: https://photos.internal.wat.sn:443
       - service: http_status:404
 

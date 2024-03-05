@@ -25,13 +25,13 @@ spec:
         kubernetes.io/ingress.class: nginx
       tls:
         - hosts:
-          - dev.external.corywatson.net
+          - dev.internal.wat.sn
           secretName: code-server-cert
       hosts: 
-      - host: dev.external.corywatson.net
+      - host: dev.internal.wat.sn
         paths:
         - /
-      - host: dev.corywatson.net
+      - host: dev.wat.sn
         paths:
         - /
     persistence:
