@@ -40,12 +40,12 @@ spec:
         enabled: true
         ingressClassName: "nginx"
         hosts:
-          - host: "jellyseer.internal.corywatson.net"
+          - host: "jellyseer.internal.wat.sn"
             paths:
               - path: /
         tls:
           - hosts:
-              - "jellyseer.internal.corywatson.net"
+              - "jellyseer.internal.wat.sn"
             secretName: jellyseer-ingress-cert
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-prod"       
