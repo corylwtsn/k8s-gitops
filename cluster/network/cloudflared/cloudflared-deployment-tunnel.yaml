@@ -48,9 +48,9 @@ data:
     credentials-file: /etc/cloudflared/creds/creds.json
 
     ingress:
-      - hostname: auth.corywatson.net
+      - hostname: auth.wat.sn
         service: https://auth.internal.wat.sn:443
-      - hostname: photos.corywatson.net
+      - hostname: photos.wat.sn
         service: https://photos.internal.wat.sn:443
       - service: http_status:404
 
