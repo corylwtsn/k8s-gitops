@@ -63,6 +63,7 @@ spec:
       tls:
         - hosts:
           - auth.internal.wat.sn
+          - auth.corywatson.net:443
           - auth.wat.sn
           secretName: auth-cert
       annotations:
@@ -73,6 +74,10 @@ spec:
         - path: "/"      
           pathType: Prefix
       - host: auth.wat.sn 
+        paths:   
+        - path: "/"      
+          pathType: Prefix
+      - host: auth.corywatson.net
         paths:   
         - path: "/"      
           pathType: Prefix
