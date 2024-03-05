@@ -52,6 +52,4 @@ data:
         service: https://auth.internal.wat.sn:443
       - hostname: photos.wat.sn
         service: https://photos.internal.wat.sn:443
-      - hostname: auth.corywatson.net
-        service: https://auth.internal.wat.sn:443
       - service: http_status:404
