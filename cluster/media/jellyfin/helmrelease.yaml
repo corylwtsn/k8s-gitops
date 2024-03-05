@@ -28,19 +28,19 @@ spec:
           http:
             port: 8096
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: media.internal.corywatson.net.
+          external-dns.alpha.kubernetes.io/hostname: media.internal.wat.sn.
     ingress:
       main:
         enabled: true
         ingressClassName: nginx
         hosts:
-          - host: watch.internal.corywatson.net
+          - host: watch.internal.wat.sn
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - watch.internal.corywatson.net
+              - watch.internal.wat.sn
             secretName: jellfyin-ingress-cert
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-prod"

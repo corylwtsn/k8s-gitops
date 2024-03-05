@@ -18,6 +18,7 @@ spec:
     domainFilters:
      - internal.corywatson.net
      - external.corywatson.net
+     - internal.wat.sn
     provider: coredns
     coredns:
       etcdEndpoints: "https://10.0.99.50:2379,https://10.0.99.51:2379,https://10.0.99.52:2379"

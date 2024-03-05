@@ -32,6 +32,8 @@ spec:
           # use_tcp: true
         - zone: external.corywatson.net.
           scheme: dns://
+        - zone: internal.wat.sn.
+          scheme: dns://
         port: 53
         plugins:
         - name: errors
@@ -47,14 +49,14 @@ spec:
         - name: forward
           parameters: . 208.67.222.222:53 208.67.220.220:53
           configBlock: |-
-              except *.external.corywatson.net *.internal.corywatson.net
+              except *.external.corywatson.net *.internal.corywatson.net *.internal.wat.sn
         - name: cache
           parameters: 30
         - name: loop
         - name: loadbalance
         - name: log
         - name: etcd
-          parameters:  internal.corywatson.net external.corywatson.net
+          parameters:  internal.corywatson.net external.corywatson.net internal.wat.sn
           configBlock: |-
             stubzones
             path /skydns
@@ -99,6 +101,8 @@ spec:
           # use_tcp: true
         - zone: external.corywatson.net.
           scheme: dns://
+        - zone: internal.wat.sn.
+          scheme: dns://
         port: 53
         plugins:
         - name: errors
@@ -114,14 +118,14 @@ spec:
         - name: forward
           parameters: . 208.67.222.222:53 208.67.220.220:53
           configBlock: |-
-              except *.external.corywatson.net *.internal.corywatson.net
+              except *.external.corywatson.net *.internal.corywatson.net *.internal.wat.sn
         - name: cache
           parameters: 30
         - name: loop
         - name: loadbalance
         - name: log
         - name: etcd
-          parameters:  internal.corywatson.net external.corywatson.net
+          parameters:  internal.corywatson.net external.corywatson.net internal.wat.sn
           configBlock: |-
             stubzones
             path /skydns
