@@ -22,5 +22,16 @@
       "(^|/)cluster/.+\\.ya?ml$"
     ]
   },
-  "prHourlyLimit": 10
+  "prHourlyLimit": 10,
+  "packageRules": [
+    {
+      "groupName": "immich containers",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackagePrefixes": [
+        "ghcr.io/immich-app"
+      ]
+    }
+  ]
 }
