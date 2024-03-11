@@ -32,6 +32,16 @@
       "matchPackagePrefixes": [
         "ghcr.io/immich-app"
       ]
+    },
+    { 
+      "groupName": "renovate",
+      "matchDatasources": [
+        "docker",
+        "helm"
+      ],
+      "matchPackagePatterns": [
+        "^renovate"
+      ]
     }
   ]
 }
