@@ -41,7 +41,13 @@
       ],
       "matchPackagePatterns": [
         "^renovate"
-      ]
+      ],
+      "minor": {
+        "automerge": true
+      },
+      "patch": {
+        "automerge": true
+      },
     }
   ]
 }
