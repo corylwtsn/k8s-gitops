@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: immich-charts
+  name: renovate-charts
   namespace: flux-system
 spec:
   interval: 24h
-  url: https://immich-app.github.io/immich-charts
+  url: https://kubernetes-sigs.github.io/node-feature-discovery/charts/
   timeout: 3m
