@@ -38,6 +38,10 @@ spec:
       name: freenas-secrets
       valuesKey: host
       targetPath: driver.config.sshConnection.host
+    - kind: Secret
+      name: freenas-secrets
+      valuesKey: host
+      targetPath: driver.config.nfs.shareHost
   values:
     csiDriver:
       name: "org.democratic-csi.nfs"
@@ -83,7 +87,6 @@ spec:
           datasetPermissionsUser: 1000
           datasetPermissionsGroup: 1000
         nfs:
-          shareHost: 192.168.0.4
           shareAlldirs: false
           shareAllowedHosts: []
           shareAllowedNetworks: []
