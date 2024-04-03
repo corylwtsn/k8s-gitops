@@ -1,0 +1,73 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app onepassword-connect
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.0.4
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  values:
+    controllers:
+      onepassword-connect:
+        containers:
+          api:
+            image:
+              repository: docker.io/1password/connect-api
+              tag: 1.7.2
+            env:
+              OP_HTTP_PORT: &apiPort 80
+              OP_BUS_PORT: 11220
+              OP_BUS_PEERS: localhost:11221
+              OP_SESSION:
+                valueFrom:
+                  secretKeyRef:
+                    name: 1pconnect-credentials
+                    key: 1password-credentials.json
+          sync:
+            image:
+              repository: docker.io/1password/connect-sync
+              tag: 1.7.2
+            env:
+              OP_HTTP_PORT: &syncPort 8081
+              OP_BUS_PORT: 11221
+              OP_BUS_PEERS: localhost:11220
+              OP_SESSION:
+                valueFrom:
+                  secretKeyRef:
+                    name: 1pconnect-credentials
+                    key: 1password-credentials.json
+    service:
+      api:
+        controller: onepassword-connect
+        ports:
+          http:
+            port: *apiPort
+    ingress:
+      api:
+        enabled: true
+        className: nginx
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        hosts:
+          - host: &host "1pconnect.internal.wat.sn"
+            paths:
+              - path: /
+                service:
+                  identifier: api
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: 1password-connect-ingress-cert
+    persistence:
+      shared:
+        type: emptyDir
+        globalMounts:
+          - path: /home/opuser/.op/data
