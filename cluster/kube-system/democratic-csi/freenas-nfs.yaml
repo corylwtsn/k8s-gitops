@@ -55,7 +55,7 @@ spec:
         fsType: nfs
       mountOptions:
       - noatime
-      - nfsvers=4.2
+      - nfsvers=3
     controller:
       externalAttacher:
         enabled: false
