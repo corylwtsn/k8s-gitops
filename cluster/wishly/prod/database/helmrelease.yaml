@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: postgresql
+  namespace: wishly-prod
+spec:
+  chart:
+    spec:
+      chart: postgresql
+      version: 15.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+  interval: 30m
+  values:
+    global:
+      postgresql:
+        auth:
+          existingSecret: postgresql-secret
+          database: wishly
+          username: wishly
+    image:
+      registry: docker.io
+      repository: bitnami/postgresql
+      tag: 16.2.0
+    primary:
+      persistence:
+        enabled: true
+        existingClaim: postgresql-data
+      service:
+        type: LoadBalancer
+        # loadBalancerIP:
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: db.prod.wishly.internal.wat.sn.

@@ -87,6 +87,7 @@ spec:
           datasetPermissionsUser: 1000
           datasetPermissionsGroup: 1000
         nfs:
+          # shareHost
           shareAlldirs: false
           shareAllowedHosts: []
           shareAllowedNetworks: []
