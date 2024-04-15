@@ -52,6 +52,8 @@ spec:
               CREATE EXTENSION cube;
               CREATE EXTENSION earthdistance;
               CREATE EXTENSION vectors;
+        service:
+          type: LoadBalancer
 
     redis:
       enabled: true
