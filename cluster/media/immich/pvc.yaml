@@ -11,3 +11,17 @@ spec:
   storageClassName: freenas-iscsi-csi
   accessModes:
     - ReadWriteOnce
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-db
+  namespace: media
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  volumeMode: Filesystem
+  storageClassName: freenas-nfs-csi
+  accessModes:
+    - ReadWriteOnce
