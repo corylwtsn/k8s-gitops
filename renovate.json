@@ -48,6 +48,16 @@
       "patch": {
         "automerge": true
       }
+    },
+    { 
+      "groupName": "wishly",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackagePatterns": [
+        "wishly"
+      ],
+      "enabled": false
     }
   ]
 }
