@@ -40,7 +40,7 @@
         "helm"
       ],
       "matchPackagePatterns": [
-        "^renovate"
+        "renovate"
       ],
       "minor": {
         "automerge": true
