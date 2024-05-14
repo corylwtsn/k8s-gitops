@@ -30,7 +30,7 @@ spec:
   values:
     global:
       image:
-        tag: 2024.2.0
+        tag: 2024.2.2
     redis:
       enabled: true
     postgresql:
