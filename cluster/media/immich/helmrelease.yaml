@@ -75,7 +75,7 @@ spec:
       image:
         repository: ghcr.io/immich-app/immich-server
         pullPolicy: IfNotPresent
-        tag: v1.103.1@sha256:10761af14a6145353169042f29d2e49943de75b57a5d19251b365fe0d41ee15a
+        tag: v1.105.0@sha256:5aa1745048ecd84769e4c431231c73f6f5204e207427603c89c1a4ec8febe850
 
       
       ingress:
@@ -104,14 +104,14 @@ spec:
       image:
         repository: ghcr.io/immich-app/immich-server
         pullPolicy: IfNotPresent
-        tag: v1.103.1@sha256:10761af14a6145353169042f29d2e49943de75b57a5d19251b365fe0d41ee15a
+        tag: v1.105.0@sha256:5aa1745048ecd84769e4c431231c73f6f5204e207427603c89c1a4ec8febe850
 
     machine-learning:
       enabled: true
       image:
         repository: ghcr.io/immich-app/immich-machine-learning
         pullPolicy: IfNotPresent
-        tag: v1.103.1@sha256:708ff677ab952dda9d7cb9343a6d650a6ac02a4e6c7447015f9df95c780cfc42
+        tag: v1.105.0@sha256:69950a0441507b9ad9f00f883a56b71cc3e004bf337ab90846a765d5c8bd7eed
       env:
         TRANSFORMERS_CACHE: /cache
       persistence:
