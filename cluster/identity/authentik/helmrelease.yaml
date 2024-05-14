@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: authentik
-      version: 2022.12.4
+      version: 2024.4.2
       sourceRef:
         kind: HelmRepository
         name: authentik-charts
@@ -17,62 +17,55 @@ spec:
   valuesFrom:
     - kind: Secret
       name: authentik-secrets
-      valuesKey: pg_user
-      targetPath: postgresql.postgresqlUsername
-    - kind: Secret
-      name: authentik-secrets
-      valuesKey: pg_pass
-      targetPath: postgresql.postgresqlPassword
-    - kind: Secret
-      name: authentik-secrets
-      valuesKey: pg_user
+      valuesKey: username
       targetPath: authentik.postgresql.user
     - kind: Secret
       name: authentik-secrets
-      valuesKey: pg_pass
+      valuesKey: password
       targetPath: authentik.postgresql.password
     - kind: Secret
       name: authentik-secrets
-      valuesKey: geoip_id
-      targetPath: geoip.accountId
-    - kind: Secret
-      name: authentik-secrets
-      valuesKey: geoip_key
-      targetPath: geoip.licenseKey
-    - kind: Secret
-      name: authentik-secrets
-      valuesKey: secret_key
+      valuesKey: secretKey
       targetPath: authentik.secret_key
   values:
-    image:
-        tag: 2022.12.2
+    global:
+      image:
+        tag: 2024.2.0
     redis:
       enabled: true
     postgresql:
       enabled: true
-      persistence:
-        enabled: true
-        storageClass: freenas-iscsi-csi
-        accessModes:
-          - ReadWriteOnce
+      global:
+        postgresql:
+          auth:
+            existingSecret: authentik-secrets
+            database: authentik
+            username: authentik-user
+      image:
+        registry: docker.io
+        repository: bitnami/postgresql
+        tag: 16.3.0@sha256:3332e81afb4f0428afdacdfc033e0debdffe3ed2bf241c5b9742439665f3a6c3
+      primary:
+        persistence:
+          enabled: true
+          existingClaim: authentik-postgres
     geoip:
-      enabled: true
-    ingress: 
-      enabled: true
-      ingressClassName: "nginx"
-      tls:
-        - hosts:
-          - auth.internal.wat.sn
-          - auth.wat.sn
-          secretName: auth-cert
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-      hosts: 
-      - host: auth.internal.wat.sn   
-        paths:   
-        - path: "/"      
-          pathType: Prefix
-      - host: auth.wat.sn 
-        paths:   
-        - path: "/"      
-          pathType: Prefix
+      enabled: false
+      existingSecret:
+        secretName: authentik-secrets
+        accountId: geoipId
+        licenseKey: geoipKey
+    server:
+      ingress: 
+        enabled: true
+        ingressClassName: "nginx"
+        tls:
+          - hosts:
+            - auth.internal.wat.sn
+            - auth.wat.sn
+            secretName: auth-cert
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+        hosts: 
+        - auth.internal.wat.sn   
+        - auth.wat.sn
