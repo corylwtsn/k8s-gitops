@@ -17,39 +17,44 @@ spec:
   valuesFrom:
     - kind: Secret
       name: authentik-secrets
-      valuesKey: pg_user
+      valuesKey: username
       targetPath: authentik.postgresql.user
     - kind: Secret
       name: authentik-secrets
-      valuesKey: pg_pass
+      valuesKey: password
       targetPath: authentik.postgresql.password
     - kind: Secret
       name: authentik-secrets
-      valuesKey: secret_key
+      valuesKey: secretKey
       targetPath: authentik.secret_key
   values:
     global:
       image:
-        tag: 2024.4.2
+        tag: 2024.2.0
     redis:
       enabled: true
     postgresql:
       enabled: true
-      auth:
-        username: authentik-user
-        existingSecret: authentik-secrets
-        secretKeys:
-          userPasswordKey: pg_pass
+      global:
+        postgresql:
+          auth:
+            existingSecret: authentik-secrets
+            database: authentik
+            username: authentik-user
+      image:
+        registry: docker.io
+        repository: bitnami/postgresql
+        tag: 16.3.0@sha256:3332e81afb4f0428afdacdfc033e0debdffe3ed2bf241c5b9742439665f3a6c3
       primary:
         persistence:
           enabled: true
-          existingClaim: data-authentik-postgresql-0
+          existingClaim: authentik-postgres
     geoip:
-      enabled: true
+      enabled: false
       existingSecret:
         secretName: authentik-secrets
-        accountId: geoip_id
-        licenseKey: geoip_key
+        accountId: geoipId
+        licenseKey: geoipKey
     server:
       ingress: 
         enabled: true
