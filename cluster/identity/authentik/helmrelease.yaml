@@ -30,7 +30,8 @@ spec:
   values:
     global:
       image:
-        tag: 2024.2.2
+        repository: ghcr.io/goauthentik/server
+        tag: 2024.4.2
     redis:
       enabled: true
     postgresql:
