@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: jellyfin/jellyfin
-      tag: 10.8.13-1@sha256:095e6d410d1d27b17cc4a961a9bab9fab5ffce6e49389d8ec685f65ab5538525
+      tag: 10.9.7@sha256:76930362d2c266e8f0b2f51f1c6b039a5207525d0e138a1cdbec870c66c34b0f
     env:
       DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
     service:
