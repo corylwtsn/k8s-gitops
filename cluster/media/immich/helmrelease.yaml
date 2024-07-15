@@ -99,13 +99,6 @@ spec:
                 - photos.corywatson.net
               secretName: immich-ingress-cert
 
-    microservices:
-      enabled: true
-      image:
-        repository: ghcr.io/immich-app/immich-server
-        pullPolicy: IfNotPresent
-        tag: v1.108.0@sha256:248a6da7dadeb57f90eacd5635ecc65e63d4c3646a6c94a362bb57cba1b314fa
-
     machine-learning:
       enabled: true
       image:
