@@ -23,6 +23,7 @@
     ]
   },
   "prHourlyLimit": 10,
+  "prConcurrentLimit": 0,
   "packageRules": [
     {
       "groupName": "immich containers",
