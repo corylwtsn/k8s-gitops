@@ -22,4 +22,4 @@ spec:
     speaker:
       image:
         repository: quay.io/metallb/speaker
-        tag: v0.14.7@sha256:c5df4f5122b05ca39418536adffd9edabe830e885ec632641bd0330288b96bac
+        tag: v0.14.8@sha256:fd86bfc502601d6525739d411a0045e7085a4008a732be7e271c851800952142
