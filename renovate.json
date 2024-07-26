@@ -7,7 +7,7 @@
     ":semanticCommits",
     ":timezone(America/New_York)"
   ],
-  "flux":{
+  "flux": {
     "fileMatch": [
       "(^|/)cluster/.+\\.ya?ml$"
     ]
@@ -30,35 +30,35 @@
       "matchDatasources": [
         "docker"
       ],
-      "matchPackagePrefixes": [
-        "ghcr.io/immich-app"
+      "matchPackageNames": [
+        "ghcr.io/immich-app{/,}**"
       ]
     },
-    { 
+    {
       "groupName": "renovate",
       "matchDatasources": [
         "docker",
         "helm"
-      ],
-      "matchPackagePatterns": [
-        "renovate"
       ],
       "minor": {
         "automerge": true
       },
       "patch": {
         "automerge": true
-      }
+      },
+      "matchPackageNames": [
+        "/renovate/"
+      ]
     },
-    { 
+    {
       "groupName": "wishly",
       "matchDatasources": [
         "docker"
       ],
-      "matchPackagePatterns": [
-        "wishly"
-      ],
-      "enabled": false
+      "enabled": false,
+      "matchPackageNames": [
+        "/wishly/"
+      ]
     }
   ],
   "platformAutomerge": true
