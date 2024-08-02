@@ -31,7 +31,7 @@ spec:
     global:
       image:
         repository: ghcr.io/goauthentik/server
-        tag: 2024.6.1@sha256:f79b6cf35b29a8591136afb633ddd46da303e9cd2ca82c7cdfbd020a780e15e8
+        tag: 2024.6.2@sha256:a98f95518269d01bb812eb0e12c6647f3d08a36e37b9fdbdccf9345d4431b9f0
     redis:
       enabled: true
     postgresql:
