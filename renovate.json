@@ -61,7 +61,7 @@
       ]
     },
     {
-      "groupName": "renovate",
+      "groupName": "authentik",
       "matchDatasources": [
         "docker",
         "helm"
