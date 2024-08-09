@@ -59,6 +59,16 @@
       "matchPackageNames": [
         "/wishly/"
       ]
+    },
+    {
+      "groupName": "renovate",
+      "matchDatasources": [
+        "docker",
+        "helm"
+      ],
+      "matchPackageNames": [
+        "/authentik/"
+      ]
     }
   ],
   "platformAutomerge": true
