@@ -23,7 +23,7 @@ spec:
           api:
             image:
               repository: us-east1-docker.pkg.dev/wishly-401600/docker/wishly
-              tag: 0.1.1@sha256:b6477fea1257e41ca525b8f52830e390a78f372ab89199c096f11b768b62d385
+              tag: 0.2@sha256:e56d95a7aa512bfcc5bc08dc9dd6bee99fe8dab6f3ffadd4d7cc9a46965ebad8
             env:
               PORT: &apiPort 8080
               DB_HOST: db.prod.wishly.internal.wat.sn
