@@ -67,6 +67,9 @@ spec:
       architecture: standalone
       auth:
         enabled: false
+      master:
+        persistence:
+          existingClaim: immich-redis
 
     # Immich components
 

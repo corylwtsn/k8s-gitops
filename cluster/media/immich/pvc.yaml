@@ -25,3 +25,17 @@ spec:
   storageClassName: freenas-nfs-csi
   accessModes:
     - ReadWriteOnce
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-redis
+  namespace: media
+spec:
+  resources:
+    requests:
+      storage: 8Gi
+  volumeMode: Filesystem
+  storageClassName: freenas-nfs-csi
+  accessModes:
+    - ReadWriteOnce
