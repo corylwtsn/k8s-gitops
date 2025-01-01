@@ -15,6 +15,7 @@ resources:
   - metallb.yaml
   - minecraft.yaml
   - node-feature-discovery.yaml
+  - planka.yaml
   - renovate.yaml
   - sealed-secrets.yaml
   - stable.yaml
