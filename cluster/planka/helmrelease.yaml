@@ -17,7 +17,7 @@ spec:
     image:
       repository: ghcr.io/plankanban/planka
       pullPolicy: IfNotPresent
-      tag: 1.24.3
+      tag: 1.24.3@sha256:4dc91bac45f0c2f2d3e22b3e6ec8527ad2d0ec16b3e0d6c91d434a0d2896d120
 
     existingSecretkeySecret: planka
 
