@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: authentik
-      version: 2024.8.2
+      version: 2024.12.1
       sourceRef:
         kind: HelmRepository
         name: authentik-charts
@@ -31,7 +31,7 @@ spec:
     global:
       image:
         repository: ghcr.io/goauthentik/server
-        tag: 2024.8.2@sha256:71984fdbb7a9414f5172bb446104d3fe4ab1ab412c8b3343bb97b04449dd53eb
+        tag: 2024.12.1@sha256:e71c9b586b23e0c0dc8cf974d8e951b6ed5199db4a00dd2b99ccec0eb9a1f4d8
     redis:
       enabled: true
     postgresql:
