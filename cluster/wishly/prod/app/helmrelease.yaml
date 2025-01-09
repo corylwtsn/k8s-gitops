@@ -64,4 +64,4 @@ spec:
           - hosts:
               - *host
               - *ihost
-            secretName: 1password-connect-ingress-cert
+            secretName: wishly-cert
