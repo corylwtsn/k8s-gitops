@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: renovate
-      version: 39.177.1
+      version: 39.177.2
       sourceRef:
         kind: HelmRepository
         name: renovate-charts
@@ -36,7 +36,7 @@ spec:
       # -- Image name to pull
       repository: renovatebot/renovate
       # -- Renovate image tag to pull
-      tag: 39.177.2@sha256:f33c8c46bf7619df819624c70b1dd15d1f89542605985dd92290862e31d602aa
+      tag: 39.177.3@sha256:0a639a1b8fa2bc7a7313895ba05840d086813b5afae284b5386c8e26d55ee366
       # -- "IfNotPresent" to pull the image if no image with the specified tag exists on the node, "Always" to always pull the image or "Never" to try and use pre-pulled images
       pullPolicy: IfNotPresent
 
