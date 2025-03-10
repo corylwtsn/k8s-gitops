@@ -48,14 +48,8 @@ spec:
             existingSecret: immich-postgresql
             database: immich
             username: immich
-      resources:
-        requests:
-          cpu: 200m
-          memory: 256Mi
-        limits:
-          cpu: 250m
-          memory: 321Mi
       primary:
+        resourcesPreset: "small"
         initdb:
           scripts:
             create-extensions.sql: |
