@@ -48,6 +48,13 @@ spec:
             existingSecret: immich-postgresql
             database: immich
             username: immich
+      resources:
+        requests:
+          cpu: 200m
+          memory: 256Mi
+        limits:
+          cpu: 250m
+          memory: 321Mi
       primary:
         initdb:
           scripts:
@@ -106,7 +113,12 @@ spec:
       image:
         repository: ghcr.io/immich-app/immich-machine-learning
         pullPolicy: IfNotPresent
-        tag: v1.125.6@sha256:0ca72dae460b7fd2dbd0ca146fdddfd26b1c1af783f37659c2f1bdd546fdf1e4
+        tag: v1.125.6-openvino@sha256:8909004714c08e9573c5e5a8c761fdb1afe240b1a343a63829ba534a25f21dee 
+      resources:
+        requests:
+          gpu.intel.com/i915: "1"
+        limits:
+          gpu.intel.com/i915: "1"
       env:
         TRANSFORMERS_CACHE: /cache
       persistence:
