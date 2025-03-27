@@ -50,7 +50,7 @@ spec:
       config: |
         {
           "platform": "github",
-          "repositories": ["corylwtsn/k8s-gitops"]
+          "repositories": ["corylwtsn/k8s-gitops", "corylwtsn/media-stack"]
         }
 
       # -- Options related to persistence
