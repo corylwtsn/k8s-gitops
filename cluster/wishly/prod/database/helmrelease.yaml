@@ -24,7 +24,7 @@ spec:
     image:
       registry: docker.io
       repository: bitnami/postgresql
-      tag: 16.4.0@sha256:75c5d322fd11bb10a0e4ddebf4ab312aa9ec2bbcf2b64986f7d87127483e2b14
+      tag: 17.4.0@sha256:fb3806e823c271c2b0e0e58134769368749cbcab1db4229c23c300ccdce28058
     primary:
       persistence:
         enabled: true
