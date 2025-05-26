@@ -1,0 +1,52 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app memos-postgresql
+spec:
+  chart:
+    spec:
+      chart: cluster
+      version:  0.3.1
+      sourceRef:
+        kind: HelmRepository
+        name: cloudnative-pg
+        namespace: flux-system
+  interval: 30m
+  values:
+    type: postgresql
+    version:
+      postgresql: "16"
+      mode: standalone
+
+    cluster:
+      instances: 1
+      imageName: "ghcr.io/cloudnative-pg/postgresql:16@sha256:4418a66c2232ba0bd63dd6c7a98ee401bcac340efbb5f380f8879d004654a7d3"
+      storage:
+        size: 10Gi
+        storageClass: "freenas-nfs-csi"
+      services:
+        disabledDefaultServices: ["ro", "r"]
+        additional:
+          - selectorType: rw
+            serviceTemplate:
+              metadata:
+                name: "memos-db-lb"
+                annotations:
+                  external-dns.alpha.kubernetes.io/hostname: db.memos.internal.wat.sn.
+              spec:
+                type: LoadBalancer
+                ports:
+                  - name: postgres
+                    port: 5432
+                    targetPort: 5432
+                    protocol: TCP
+      certificates:
+        serverCASecret: memos-db-cert
+        serverTLSSecret: memos-db-cert
+      enableSuperuserAccess: true
+      enablePDB: true
+
+      initdb:
+        database: memos
+        secret:
+          name: memos-db

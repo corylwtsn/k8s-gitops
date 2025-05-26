@@ -1,0 +1,44 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: server-ca
+spec:
+  isCA: true
+  commonName: my-selfsigned-server-ca
+  secretName: server-ca-key-pair
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: selfsigned-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: server-ca-issuer
+spec:
+  ca:
+    secretName: server-ca-key-pair
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: memos-db-cert
+  labels:
+    cnpg.io/reload: ""
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: memos-db-cert
+spec:
+  secretName: memos-db-cert
+  usages:
+    - server auth
+  dnsNames:
+    - db.memos.internal.wat.sn
+  issuerRef:
+    name: server-ca-issuer
+    kind: Issuer

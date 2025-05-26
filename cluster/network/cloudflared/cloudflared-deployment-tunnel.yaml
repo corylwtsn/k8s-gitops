@@ -56,4 +56,6 @@ data:
         service: https://wishly.internal.wat.sn:443
       - hostname: planka.wat.sn
         service: https://planka.internal.wat.sn:443
+      - hostname: memos.wat.sn
+        service: https://memos.internal.wat.sn:443
       - service: http_status:404
