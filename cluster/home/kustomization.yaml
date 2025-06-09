@@ -4,3 +4,4 @@ namespace: planka
 resources:
 - planka
 - memos
+- homeassistant
