@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app memos-postgresql
+  name: &app mealie-postgresql
 spec:
   chart:
     spec:
@@ -30,9 +30,9 @@ spec:
           - selectorType: rw
             serviceTemplate:
               metadata:
-                name: "memos-db-lb"
+                name: "mealie-db-lb"
                 annotations:
-                  external-dns.alpha.kubernetes.io/hostname: db.memos.internal.wat.sn.
+                  external-dns.alpha.kubernetes.io/hostname: db.mealie.internal.wat.sn.
               spec:
                 type: LoadBalancer
                 ports:
@@ -41,12 +41,11 @@ spec:
                     targetPort: 5432
                     protocol: TCP
       certificates:
-        serverCASecret: memos-db-cert
-        serverTLSSecret: memos-db-cert
-      enableSuperuserAccess: false
+        serverCASecret: mealie-db-cert
+        serverTLSSecret: mealie-db-cert
       enablePDB: true
 
       initdb:
-        database: memos
+        database: mealie
         secret:
-          name: memos-db
+          name: mealie-db

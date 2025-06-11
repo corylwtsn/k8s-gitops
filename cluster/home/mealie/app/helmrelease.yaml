@@ -1,0 +1,76 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app mealie
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 3
+  # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.0.1/charts/other/app-template/values.schema.json
+  values:
+    controllers:
+      main:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/mealie-recipes/mealie
+              tag: v2.8.0
+              pullPolicy: IfNotPresent
+            env:
+              ALLOW_SIGNUP: "false"
+              DB_ENGINE: postgres
+              TZ: America/New_York
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: mealie-db
+                    key: password
+              POSTGRES_SERVER: db.mealie.internal.wat.sn
+              BASE_URL: https://mealie.wat.sn
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: 9000
+
+    ingress:
+      main:
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        className: "nginx"
+        hosts:
+          - host: &ihost "mealie.internal.wat.sn"
+            paths:
+              - path: /
+                service:
+                  identifier: main
+                  port: http
+          - host: &host mealie.wat.sn
+            paths:
+              - path: /
+                service:
+                  identifier: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
+              - *ihost
+            secretName: mealie-ingress-cert
+
+    persistence:
+      config:
+        type: persistentVolumeClaim
+        existingClaim: mealie-data
+        advancedMounts:
+          main:
+            app:
+              - path: /app/data
+                
