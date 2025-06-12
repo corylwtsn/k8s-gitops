@@ -24,7 +24,6 @@ spec:
               tag: v2.8.0
               pullPolicy: IfNotPresent
             env:
-              ALLOW_SIGNUP: "false"
               DB_ENGINE: postgres
               TZ: America/New_York
               POSTGRES_PASSWORD:
@@ -34,6 +33,27 @@ spec:
                     key: password
               POSTGRES_SERVER: db.mealie.internal.wat.sn
               BASE_URL: https://mealie.wat.sn
+              OIDC_AUTH_ENABLED: true
+              OIDC_CONFIGURATION_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: mealie
+                    key: oidc_configuration_url
+              OIDC_CLIENT_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: mealie
+                    key: oidc_client_id
+              OIDC_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: mealie
+                    key: oidc_client_secret
+              OIDC_ADMIN_GROUP: mealie-admins
+              # OIDC_USER_GROUP: mealie-users
+              OIDC_AUTO_REDIRECT: true
+              # OIDC_PROVIDER_NAME: Authnetik
+              
     service:
       main:
         controller: main

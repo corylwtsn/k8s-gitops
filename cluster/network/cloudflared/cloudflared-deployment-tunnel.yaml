@@ -60,4 +60,6 @@ data:
         service: https://memos.internal.wat.sn:443
       - hostname: ha.wat.sn
         service: https://ha.internal.wat.sn:443
+      - hostname: mealie.wat.sn
+        service: https://mealie.internal.wat.sn:443
       - service: http_status:404
