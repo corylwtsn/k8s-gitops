@@ -21,7 +21,7 @@ spec:
           app:
             image:
               repository: ghcr.io/mealie-recipes/mealie
-              tag: v2.8.0
+              tag: v3.0.2@sha256:448d56c5b41b668a8e2f0e435ade52ce6bd574d906d3e45eba1e9a1d05f844ff
               pullPolicy: IfNotPresent
             env:
               DB_ENGINE: postgres
