@@ -18,7 +18,7 @@ spec:
     spec:
       initContainers:
         - name: pv-chown
-          image: busybox@sha256:5eef5ed34e1e1ff0a4ae850395cbf665c4de6b4b83a32a0bc7bcb998e24e7bbb
+          image: busybox@sha256:d82f458899c9696cb26a7c02d5568f81c8c8223f8661bb2a7988b269c8b9051e
           imagePullPolicy: IfNotPresent
           command:
             - "sh"
