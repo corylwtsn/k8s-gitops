@@ -36,7 +36,7 @@ spec:
       # -- Image name to pull
       repository: renovatebot/renovate
       # -- Renovate image tag to pull
-      tag: 41.149.0@sha256:4731480b3d7083c38cbc1a2109766bd16819fc43cbc527f104235ee98ab65945
+      tag: 41.149.1@sha256:a5821e8c2b5cf6012af535d00065bedcaaa00f8e64cd9abcff6456bf1fb482c2
       # -- "IfNotPresent" to pull the image if no image with the specified tag exists on the node, "Always" to always pull the image or "Never" to try and use pre-pulled images
       pullPolicy: IfNotPresent
 
