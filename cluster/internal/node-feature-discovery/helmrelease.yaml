@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: gcr.io/k8s-staging-nfd/node-feature-discovery
-      tag: v0.18.0@sha256:3fbed789c01ee6545143af60f3d405225970a7166cb54970c238dd33e65af40f
+      tag: v0.18.2@sha256:9fb5b0764076a7e9c9a93579ef062dd7283b2db0253fa9f793a6931a2c88385e
     worker:
       config:
         core:
