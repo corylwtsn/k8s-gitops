@@ -41,6 +41,8 @@ spec:
         enabled: true
         className: nginx
         annotations:
+          # proxy-body-size is set to 0 to remove the body limit on file uploads
+          nginx.ingress.kubernetes.io/proxy-body-size: "0"
           cert-manager.io/cluster-issuer: "letsencrypt-prod"
         hosts:
           - host: &ihost "memos.internal.wat.sn"
