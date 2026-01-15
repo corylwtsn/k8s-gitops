@@ -78,7 +78,7 @@ spec:
       image:
         repository: ghcr.io/immich-app/immich-server
         pullPolicy: IfNotPresent
-        tag: v2.0.1@sha256:8286638680f0a38a7cb380be64ed77d1d1cfe6d0e0b843f64bff92b24289078d
+        tag: v2.4.1@sha256:e6a6298e67ae077808fdb7d8d5565955f60b0708191576143fc02d30ab1389d1
 
       
       ingress:
@@ -107,7 +107,7 @@ spec:
       image:
         repository: ghcr.io/immich-app/immich-machine-learning
         pullPolicy: IfNotPresent
-        tag: v2.0.1-openvino@sha256:1a5a49530275ee49553b8135646631c64b62e7d22614004db8f765013761b0ba 
+        tag: v2.4.1-openvino@sha256:1c6c703477072b8878b5285d2186af7861f941458a55f2d994158bef373ef010 
       resources:
         requests:
           gpu.intel.com/i915: "1"
