@@ -20,7 +20,7 @@ spec:
           main:
             image:
               repository: neosmemo/memos
-              tag: 0.25.1@sha256:f1faf27fb60aff4df13fc2c6017baa7b6f8ea684dc9a9bff6f212a01d2efe108
+              tag: 0.26.1@sha256:806abfd3743a23dc9f2dfc2b19e5f1464a8e1d79ad4ad8eeb4545cf288bbf137
             env:
               MEMOS_PORT: &apiPort 5230
               MEMOS_DRIVER: postgres
