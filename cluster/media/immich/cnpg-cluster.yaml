@@ -12,7 +12,8 @@ spec:
     shared_preload_libraries:
       - vchord.so
     extensions:
-      - image:
+      - name: vchord
+        image:
           reference: ghcr.io/tensorchord/vchord-scratch:pg16-v1.1.1@sha256:b15cd02051cad0a8f4cb02dbd4cbdfee0acedbcd4c986337d0a1ddd1006a0feb
 
   storage:
