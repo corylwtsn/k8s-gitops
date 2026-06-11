@@ -5,6 +5,8 @@ metadata:
   name: &app wishly
 spec:
   interval: 30m
+  upgrade:
+    force: true
   chart:
     spec:
       chart: app-template
