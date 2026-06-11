@@ -20,23 +20,23 @@ spec:
               group: postgresql.cnpg.io
               version: v1
               kind: Cluster
-              name: immich-postgres
+              name: immich-postgres-cluster
             patch: |
               - op: add
                 path: /spec/postgresql/extensions
                 value:
                   - name: vchord
                     image:
-                      reference: ghcr.io/tensorchord/vchord-scratch:pg16-v1.1.1@sha256:b15cd02051cad0a8f4cb02dbd4cbdfee0acedbcd4c986337d0a1ddd1006a0feb
+                      reference: ghcr.io/tensorchord/vchord-scratch:pg17-v1.1.1@sha256:72b7cf886db4fafc3cfd831ff418b9effcee9f4a056d196bff219f914723ff23
   values:
     type: postgresql
     version:
-      postgresql: "16"
+      postgresql: "17"
       mode: standalone
 
     cluster:
       instances: 1
-      imageName: "ghcr.io/cloudnative-pg/postgresql:16@sha256:096c60451f809596865f37eb99ee99d23b20b0d54fb889bb35119fc2283f2f76"
+      imageName: "ghcr.io/cloudnative-pg/postgresql:17@sha256:d394417ac1209f7ad074eed7dc7f5078a8fe3de174032ad6c1488e2274df99be"
       storage:
         size: 5Gi
         storageClass: freenas-nfs-csi
