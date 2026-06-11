@@ -6,12 +6,14 @@ metadata:
   namespace: media
 spec:
   instances: 1
-  imageName: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.3.0@sha256:87c050465fb969a68c7ac23e375e21f4c95cfacd0edce5fa1bc31e63b7891891
+  imageName: ghcr.io/cloudnative-pg/postgresql:14-debian@sha256:0009d5149042bf8295e3853be88dccb39bb6668901a092e80ddb45c43f70e204
 
   postgresql:
     shared_preload_libraries:
-      - vectors.so
       - vchord.so
+    extensions:
+      - image:
+          reference: ghcr.io/tensorchord/vchord-scratch:pg14-v1.1.1@sha256:9c0e2aca1ff1888abd9632f42dc8d3a0be648c755c182496908a3d802056c55a
 
   storage:
     size: 5Gi
@@ -24,20 +26,3 @@ spec:
     initdb:
       database: immich
       owner: immich
-      import:
-        type: microservice
-        databases:
-          - immich
-        source:
-          externalCluster: existing-postgres
-
-  externalClusters:
-    - name: existing-postgres
-      connectionParameters:
-        host: immich-postgresql.media.svc.cluster.local
-        user: postgres
-        dbname: immich
-        sslmode: disable
-      password:
-        name: immich-postgresql
-        key: postgres-password
