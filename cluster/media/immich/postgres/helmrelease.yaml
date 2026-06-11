@@ -22,12 +22,16 @@ spec:
               kind: Cluster
               name: immich-postgres-cluster
             patch: |
-              - op: add
-                path: /spec/postgresql/extensions
-                value:
-                  - name: vchord
-                    image:
-                      reference: ghcr.io/tensorchord/vchord-scratch:pg17-v1.1.1@sha256:72b7cf886db4fafc3cfd831ff418b9effcee9f4a056d196bff219f914723ff23
+              apiVersion: postgresql.cnpg.io/v1
+              kind: Cluster
+              metadata:
+                name: immich-postgres-cluster
+              spec:
+                postgresql:
+                  extensions:
+                    - name: vchord
+                      image:
+                        reference: ghcr.io/tensorchord/vchord-scratch:pg17-v1.1.1@sha256:72b7cf886db4fafc3cfd831ff418b9effcee9f4a056d196bff219f914723ff23
   values:
     type: postgresql
     version:
