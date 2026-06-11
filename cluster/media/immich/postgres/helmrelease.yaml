@@ -13,6 +13,21 @@ spec:
         name: cloudnative-pg
         namespace: flux-system
   interval: 30m
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              group: postgresql.cnpg.io
+              version: v1
+              kind: Cluster
+              name: immich-postgres
+            patch: |
+              - op: add
+                path: /spec/postgresql/extensions
+                value:
+                  - name: vchord
+                    image:
+                      reference: ghcr.io/tensorchord/vchord-scratch:pg16-v1.1.1@sha256:b15cd02051cad0a8f4cb02dbd4cbdfee0acedbcd4c986337d0a1ddd1006a0feb
   values:
     type: postgresql
     version:
@@ -26,12 +41,8 @@ spec:
         size: 5Gi
         storageClass: freenas-nfs-csi
       postgresql:
-        shared_preload_libraries:
-          - vchord.so
-        extensions:
-          - name: vchord
-            image:
-              reference: ghcr.io/tensorchord/vchord-scratch:pg16-v1.1.1@sha256:b15cd02051cad0a8f4cb02dbd4cbdfee0acedbcd4c986337d0a1ddd1006a0feb
+        parameters:
+          shared_preload_libraries: "vchord.so"
       enableSuperuserAccess: false
       enablePDB: true
 
