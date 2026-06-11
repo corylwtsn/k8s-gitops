@@ -20,7 +20,7 @@ spec:
               group: postgresql.cnpg.io
               version: v1
               kind: Cluster
-              name: immich-postgres
+              name: immich-postgres-cluster
             patch: |
               - op: add
                 path: /spec/postgresql/extensions
