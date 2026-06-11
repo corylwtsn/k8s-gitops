@@ -8,46 +8,51 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 5.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
   maxHistory: 3
+  upgrade:
+    force: true
+  # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-5.0.1/charts/other/app-template/values.schema.json
   values:
-    controller:
-      type: statefulset
-      replicas: 0
-
-    image:
-      repository: ghcr.io/wolveix/satisfactory-server/satisfactory-server
-      tag: v1.6.0@sha256:e36d95f12a90b9363fc1a3836041f4b35156399a78779a1dc89c827b93218bb7
+    controllers:
+      main:
+        type: StatefulSet
+        replicas: 0
+        containers:
+          app:
+            image:
+              repository: ghcr.io/wolveix/satisfactory-server/satisfactory-server
+              tag: v1.6.0@sha256:e36d95f12a90b9363fc1a3836041f4b35156399a78779a1dc89c827b93218bb7
+            probes:
+              startup:
+                enabled: false
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+            resources:
+              requests:
+                memory: 12G
     service:
       main:
+        controller: main
         type: LoadBalancer
         ports:
           http:
             port: 7777
             protocol: UDP
           query:
-            primary: false
             port: 15777
             protocol: UDP
           beacon:
-            primary: false
             port: 15000
             protocol: UDP
     persistence:
       config:
-        enabled: true
         existingClaim: satisfactory-data
-    probes:
-      startup:
-        enabled: false
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-    resources:
-      requests:
-        memory: 12G
+        globalMounts:
+          - path: /config
