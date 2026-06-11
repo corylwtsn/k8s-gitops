@@ -1,0 +1,39 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app immich-postgres
+spec:
+  chart:
+    spec:
+      chart: cluster
+      version: 0.6.1
+      sourceRef:
+        kind: HelmRepository
+        name: cloudnative-pg
+        namespace: flux-system
+  interval: 30m
+  values:
+    type: postgresql
+    version:
+      postgresql: "16"
+      mode: standalone
+
+    cluster:
+      instances: 1
+      imageName: "ghcr.io/cloudnative-pg/postgresql:16@sha256:096c60451f809596865f37eb99ee99d23b20b0d54fb889bb35119fc2283f2f76"
+      storage:
+        size: 5Gi
+        storageClass: freenas-nfs-csi
+      postgresql:
+        shared_preload_libraries:
+          - vchord.so
+        extensions:
+          - name: vchord
+            image:
+              reference: ghcr.io/tensorchord/vchord-scratch:pg16-v1.1.1@sha256:b15cd02051cad0a8f4cb02dbd4cbdfee0acedbcd4c986337d0a1ddd1006a0feb
+      enableSuperuserAccess: false
+      enablePDB: true
+
+      initdb:
+        database: immich
+        owner: immich
