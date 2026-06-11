@@ -40,9 +40,6 @@ spec:
       storage:
         size: 5Gi
         storageClass: freenas-nfs-csi
-      postgresql:
-        parameters:
-          shared_preload_libraries: "vchord.so"
       enableSuperuserAccess: false
       enablePDB: true
 
