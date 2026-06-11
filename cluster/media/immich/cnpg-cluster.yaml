@@ -6,14 +6,14 @@ metadata:
   namespace: media
 spec:
   instances: 1
-  imageName: ghcr.io/cloudnative-pg/postgresql:14-debian@sha256:0009d5149042bf8295e3853be88dccb39bb6668901a092e80ddb45c43f70e204
+  imageName: ghcr.io/cloudnative-pg/postgresql:16@sha256:096c60451f809596865f37eb99ee99d23b20b0d54fb889bb35119fc2283f2f76
 
   postgresql:
     shared_preload_libraries:
       - vchord.so
     extensions:
       - image:
-          reference: ghcr.io/tensorchord/vchord-scratch:pg14-v1.1.1@sha256:9c0e2aca1ff1888abd9632f42dc8d3a0be648c755c182496908a3d802056c55a
+          reference: ghcr.io/tensorchord/vchord-scratch:pg16-v1.1.1@sha256:b15cd02051cad0a8f4cb02dbd4cbdfee0acedbcd4c986337d0a1ddd1006a0feb
 
   storage:
     size: 5Gi
