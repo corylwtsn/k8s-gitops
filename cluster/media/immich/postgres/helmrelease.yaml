@@ -31,16 +31,16 @@ spec:
                   extensions:
                     - name: vchord
                       image:
-                        reference: ghcr.io/tensorchord/vchord-scratch:pg17-v1.1.1@sha256:72b7cf886db4fafc3cfd831ff418b9effcee9f4a056d196bff219f914723ff23
+                        reference: ghcr.io/tensorchord/vchord-scratch:pg18-v1.1.1@sha256:0e1ac9e82d2ddeb1aa88e401e0e5cc305e39afa7556d10a7effb9f1fc4252bc5
   values:
     type: postgresql
     version:
-      postgresql: "17"
+      postgresql: "18"
       mode: standalone
 
     cluster:
       instances: 1
-      imageName: "ghcr.io/cloudnative-pg/postgresql:17@sha256:d394417ac1209f7ad074eed7dc7f5078a8fe3de174032ad6c1488e2274df99be"
+      imageName: "ghcr.io/cloudnative-pg/postgresql:18@sha256:34bd6045c06b85f8364f5dd447fa5d024adf725a9277c9ba58bd5fa01acae9ce"
       storage:
         size: 5Gi
         storageClass: freenas-nfs-csi
