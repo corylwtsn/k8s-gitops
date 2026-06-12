@@ -8,71 +8,65 @@ spec:
   chart:
     spec:
       chart: immich
-      version: 0.8.5
+      version: 0.12.0
       sourceRef:
         kind: HelmRepository
         name: immich-charts
         namespace: flux-system
   interval: 30m
   values:
-    env:
-      REDIS_HOSTNAME: '{{ printf "%s-redis-master" .Release.Name }}'
-      DB_HOSTNAME: "immich-postgres-cluster-rw"
-      DB_USERNAME: "immich"
-      DB_DATABASE_NAME: "immich"
-      DB_PASSWORD:
-        valueFrom:
-          secretKeyRef:
-            name: immich-postgres-cluster-app
-            key: password
-      IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
+    controllers:
+      main:
+        containers:
+          main:
+            env:
+              REDIS_HOSTNAME: '{{ printf "%s-valkey" .Release.Name }}'
+              DB_HOSTNAME: "immich-postgres-cluster-rw"
+              DB_USERNAME: "immich"
+              DB_DATABASE_NAME: "immich"
+              DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-postgres-cluster-app
+                    key: password
+              IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
 
     immich:
       persistence:
-        # Main data store for all photos shared between different components.
         library:
-          # Automatically creating the library volume is not supported by this chart
-          # You have to specify an existing PVC to use
           existingClaim: immich-storage
 
-    # Dependencies
-    postgresql:
-      enabled: false
-
-    redis:
+    valkey:
       enabled: true
-      architecture: standalone
-      auth:
-        enabled: false
-      master:
-        persistence:
-          existingClaim: immich-redis
-
-    # Immich components
 
     server:
       enabled: true
-      image:
-        repository: ghcr.io/immich-app/immich-server
-        pullPolicy: IfNotPresent
-        tag: v2.7.5@sha256:c15bff75068effb03f4355997d03dc7e0fc58720c2b54ad6f7f10d1bc57efaa5
-
-      
+      controllers:
+        main:
+          containers:
+            main:
+              image:
+                repository: ghcr.io/immich-app/immich-server
+                pullPolicy: IfNotPresent
+                tag: v2.7.5@sha256:c15bff75068effb03f4355997d03dc7e0fc58720c2b54ad6f7f10d1bc57efaa5
       ingress:
         main:
           enabled: true
           ingressClassName: "nginx"
           annotations:
-            # proxy-body-size is set to 0 to remove the body limit on file uploads
             nginx.ingress.kubernetes.io/proxy-body-size: "0"
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
           hosts:
             - host: photos.internal.wat.sn
               paths:
                 - path: "/"
+                  service:
+                    identifier: main
             - host: photos.wat.sn
               paths:
                 - path: "/"
+                  service:
+                    identifier: main
           tls:
             - hosts:
                 - photos.internal.wat.sn
@@ -81,21 +75,25 @@ spec:
 
     machine-learning:
       enabled: true
-      image:
-        repository: ghcr.io/immich-app/immich-machine-learning
-        pullPolicy: IfNotPresent
-        tag: v2.7.5-openvino@sha256:71cd5a681823c4b818f4b24b3f05816eccc3d085559e7615f695bde77e64f1f2
-      resources:
-        requests:
-          gpu.intel.com/i915: "1"
-        limits:
-          gpu.intel.com/i915: "1"
-      env:
-        TRANSFORMERS_CACHE: /cache
+      controllers:
+        main:
+          containers:
+            main:
+              image:
+                repository: ghcr.io/immich-app/immich-machine-learning
+                pullPolicy: IfNotPresent
+                tag: v2.7.5-openvino@sha256:71cd5a681823c4b818f4b24b3f05816eccc3d085559e7615f695bde77e64f1f2
+              resources:
+                requests:
+                  gpu.intel.com/i915: "1"
+                limits:
+                  gpu.intel.com/i915: "1"
+              env:
+                TRANSFORMERS_CACHE: /cache
       persistence:
         cache:
           enabled: true
           size: 10Gi
-          type: pvc
+          type: persistentVolumeClaim
           accessMode: ReadWriteOnce
           storageClass: freenas-iscsi-csi
