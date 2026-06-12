@@ -13,25 +13,6 @@ spec:
         name: cloudnative-pg
         namespace: flux-system
   interval: 30m
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              group: postgresql.cnpg.io
-              version: v1
-              kind: Cluster
-              name: immich-postgres-cluster
-            patch: |
-              apiVersion: postgresql.cnpg.io/v1
-              kind: Cluster
-              metadata:
-                name: immich-postgres-cluster
-              spec:
-                postgresql:
-                  extensions:
-                    - name: vchord
-                      image:
-                        reference: ghcr.io/tensorchord/vchord-scratch:pg18-v1.1.1@sha256:0e1ac9e82d2ddeb1aa88e401e0e5cc305e39afa7556d10a7effb9f1fc4252bc5
   values:
     type: postgresql
     version:
@@ -40,7 +21,7 @@ spec:
 
     cluster:
       instances: 1
-      imageName: "ghcr.io/cloudnative-pg/postgresql:18@sha256:34bd6045c06b85f8364f5dd447fa5d024adf725a9277c9ba58bd5fa01acae9ce"
+      imageName: "ghcr.io/tensorchord/cloudnative-vectorchord:18-1.1.1@sha256:392b53675b403d6a2c72b673cc488a7c272514755dd818c622fb9ce4665193c4"
       storage:
         size: 5Gi
         storageClass: freenas-nfs-csi
