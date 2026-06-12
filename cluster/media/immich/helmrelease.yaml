@@ -17,14 +17,13 @@ spec:
   values:
     env:
       REDIS_HOSTNAME: '{{ printf "%s-redis-master" .Release.Name }}'
-      DB_HOSTNAME: "{{ .Release.Name }}-postgresql"
-      DB_USERNAME: "{{ .Values.postgresql.global.postgresql.auth.username }}"
-      DB_DATABASE_NAME: "{{ .Values.postgresql.global.postgresql.auth.database }}"
-      # -- You should provide your own secret outside of this helm-chart and use `postgresql.global.postgresql.auth.existingSecret` to provide credentials to the postgresql instance
-      DB_PASSWORD: 
+      DB_HOSTNAME: "immich-postgres-cluster-rw"
+      DB_USERNAME: "immich"
+      DB_DATABASE_NAME: "immich"
+      DB_PASSWORD:
         valueFrom:
           secretKeyRef:
-            name: immich-postgresql
+            name: immich-postgres-cluster-app
             key: password
       IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
 
@@ -38,29 +37,7 @@ spec:
 
     # Dependencies
     postgresql:
-      enabled: true
-      image:
-        repository: tensorchord/pgvecto-rs
-        tag: pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
-      global:
-        postgresql:
-          auth:
-            existingSecret: immich-postgresql
-            database: immich
-            username: immich
-      primary:
-        resourcesPreset: "small"
-        initdb:
-          scripts:
-            create-extensions.sql: |
-              CREATE EXTENSION cube;
-              CREATE EXTENSION earthdistance;
-              CREATE EXTENSION vectors;
-        persistence:
-          enabled: true
-          existingClaim: immich-db
-        service:
-          type: LoadBalancer
+      enabled: false
 
     redis:
       enabled: true
