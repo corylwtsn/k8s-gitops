@@ -1,18 +1,4 @@
 ---
-# Remove after dump/restore migration to CNPG is complete
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: planka-postgresql
-spec:
-  resources:
-    requests:
-      storage: 10Gi
-  volumeMode: Filesystem
-  storageClassName: freenas-nfs-csi
-  accessModes:
-    - ReadWriteOnce
----
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
