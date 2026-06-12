@@ -8,31 +8,42 @@ spec:
   chart:
     spec:
       chart: external-dns
-      version: 9.0.3
+      version: 1.21.1
       sourceRef:
         kind: HelmRepository
-        name: bitnami-charts
+        name: external-dns-charts
         namespace: flux-system
       interval: 5m
   values:
+    provider:
+      name: coredns
     domainFilters:
-     - internal.corywatson.net
-     - external.corywatson.net
-     - internal.wat.sn
-    provider: coredns
-    coredns:
-      etcdEndpoints: "https://10.0.99.50:2379,https://10.0.99.51:2379,https://10.0.99.52:2379"
-      etcdTLS:
-        enabled: true
-        secretName: etcd-certs
-        caFilename: server-ca.crt
-        certFilename: server-client.crt
-        keyFilename: server-client.key
-    crd: 
-      create: true
-      apiVersion: externaldns.k8s.io/v1alpha1
-      kind: DNSEndpoint
-    sources: 
+      - internal.corywatson.net
+      - external.corywatson.net
+      - internal.wat.sn
+    sources:
       - service
       - ingress
       - crd
+    policy: upsert-only
+    interval: 1m
+    extraArgs:
+      - --crd-source-kind=DNSEndpoint
+    env:
+      - name: ETCD_URLS
+        value: "https://10.0.99.50:2379,https://10.0.99.51:2379,https://10.0.99.52:2379"
+      - name: ETCD_CERT_FILE
+        value: /etc/coredns/tls/etcd/server-client.crt
+      - name: ETCD_KEY_FILE
+        value: /etc/coredns/tls/etcd/server-client.key
+      - name: ETCD_CA_FILE
+        value: /etc/coredns/tls/etcd/server-ca.crt
+    extraVolumes:
+      - name: etcd-certs
+        secret:
+          secretName: etcd-certs
+          defaultMode: 0400
+    extraVolumeMounts:
+      - name: etcd-certs
+        mountPath: /etc/coredns/tls/etcd
+        readOnly: true
