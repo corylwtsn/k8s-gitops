@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: authentik
-      version: 2024.12.3
+      version: 2026.5.3
       sourceRef:
         kind: HelmRepository
         name: authentik-charts
@@ -16,11 +16,11 @@ spec:
       interval: 5m
   valuesFrom:
     - kind: Secret
-      name: authentik-secrets
+      name: authentik-postgres-cluster-app
       valuesKey: username
       targetPath: authentik.postgresql.user
     - kind: Secret
-      name: authentik-secrets
+      name: authentik-postgres-cluster-app
       valuesKey: password
       targetPath: authentik.postgresql.password
     - kind: Secret
@@ -31,25 +31,11 @@ spec:
     global:
       image:
         repository: ghcr.io/goauthentik/server
-        tag: 2024.12.5@sha256:717323d68507fb76dd79f8958f42ce57f8ae0c10a55a7807efa1cfec5752b77c
-    redis:
-      enabled: true
-    postgresql:
-      enabled: true
-      global:
-        postgresql:
-          auth:
-            existingSecret: authentik-secrets
-            database: authentik
-            username: authentik-user
-      image:
-        registry: docker.io
-        repository: bitnami/postgresql
-        tag: 16.4.0@sha256:75c5d322fd11bb10a0e4ddebf4ab312aa9ec2bbcf2b64986f7d87127483e2b14
-      primary:
-        persistence:
-          enabled: true
-          existingClaim: authentik-postgres
+        tag: 2026.5.3
+    authentik:
+      postgresql:
+        host: authentik-postgres-cluster-rw
+        name: authentik
     geoip:
       enabled: false
       existingSecret:
@@ -57,7 +43,7 @@ spec:
         accountId: geoipId
         licenseKey: geoipKey
     server:
-      ingress: 
+      ingress:
         enabled: true
         ingressClassName: "nginx"
         tls:
@@ -67,6 +53,6 @@ spec:
             secretName: auth-cert
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-prod
-        hosts: 
-        - auth.internal.wat.sn   
+        hosts:
+        - auth.internal.wat.sn
         - auth.wat.sn
