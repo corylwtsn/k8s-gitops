@@ -28,6 +28,10 @@ spec:
       enableSuperuserAccess: false
       enablePDB: true
 
+      postgresql:
+        shared_preload_libraries:
+          - vchord
+
       initdb:
         database: immich
         owner: immich
