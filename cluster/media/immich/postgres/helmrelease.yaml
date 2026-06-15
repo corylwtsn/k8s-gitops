@@ -4,6 +4,8 @@ metadata:
   name: &app immich-postgres
   namespace: media
 spec:
+  driftDetection:
+    mode: enabled
   chart:
     spec:
       chart: cluster

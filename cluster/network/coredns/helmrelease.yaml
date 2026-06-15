@@ -4,6 +4,8 @@ metadata:
   name: coredns-primary
   namespace: network
 spec:
+  driftDetection:
+    mode: enabled
   interval: 5m
   install:
     remediation:
@@ -80,6 +82,8 @@ metadata:
   name: coredns-secondary
   namespace: network
 spec:
+  driftDetection:
+    mode: enabled
   interval: 5m
   install:
     remediation:

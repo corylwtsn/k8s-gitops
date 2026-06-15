@@ -4,6 +4,8 @@ kind: HelmRelease
 metadata:
   name: &app memos
 spec:
+  driftDetection:
+    mode: enabled
   interval: 30m
   dependsOn:
     - name: memos-postgresql

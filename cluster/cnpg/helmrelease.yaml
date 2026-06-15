@@ -3,6 +3,8 @@ kind: HelmRelease
 metadata:
   name: &app cnpg
 spec:
+  driftDetection:
+    mode: enabled
   chart:
     spec:
       chart: cloudnative-pg

@@ -4,6 +4,8 @@ metadata:
   name: freenas-nfs
   namespace: kube-system
 spec:
+  driftDetection:
+    mode: enabled
   chart:
     spec:
       chart: democratic-csi

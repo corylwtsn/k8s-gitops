@@ -4,6 +4,8 @@ metadata:
   name: authentik
   namespace: identity
 spec:
+  driftDetection:
+    mode: enabled
   interval: 5m
   dependsOn:
     - name: authentik-postgres

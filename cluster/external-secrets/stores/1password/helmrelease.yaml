@@ -4,6 +4,8 @@ kind: HelmRelease
 metadata:
   name: &app onepassword-connect
 spec:
+  driftDetection:
+    mode: enabled
   interval: 30m
   install:
     remediation:

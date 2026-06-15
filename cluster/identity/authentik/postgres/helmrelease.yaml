@@ -5,6 +5,8 @@ metadata:
   name: authentik-postgres
   namespace: identity
 spec:
+  driftDetection:
+    mode: enabled
   chart:
     spec:
       chart: cluster

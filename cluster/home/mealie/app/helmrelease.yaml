@@ -3,6 +3,8 @@ kind: HelmRelease
 metadata:
   name: &app mealie
 spec:
+  driftDetection:
+    mode: enabled
   interval: 30m
   dependsOn:
     - name: mealie-postgresql

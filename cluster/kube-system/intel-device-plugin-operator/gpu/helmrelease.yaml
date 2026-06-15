@@ -6,6 +6,8 @@ metadata:
   name: intel-device-plugin-gpu
   namespace: kube-system
 spec:
+  driftDetection:
+    mode: enabled
   interval: 1h
   install:
     remediation:
