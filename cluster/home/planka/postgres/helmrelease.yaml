@@ -4,6 +4,8 @@ kind: HelmRelease
 metadata:
   name: planka-postgres
 spec:
+  driftDetection:
+    mode: enabled
   chart:
     spec:
       chart: cluster

@@ -5,6 +5,8 @@ metadata:
   name: immich
   namespace: media
 spec:
+  driftDetection:
+    mode: enabled
   dependsOn:
     - name: immich-postgres
   chart:

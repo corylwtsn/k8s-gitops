@@ -6,6 +6,8 @@ metadata:
   name: intel-device-plugin-operator
   namespace: kube-system
 spec:
+  driftDetection:
+    mode: enabled
   interval: 1h
   chart:
     spec:

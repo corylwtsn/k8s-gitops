@@ -4,6 +4,8 @@ metadata:
   name: satisfactory
   namespace: external
 spec:
+  driftDetection:
+    mode: enabled
   interval: 5m
   chart:
     spec:

@@ -4,6 +4,8 @@ metadata:
   name: external-dns
   namespace: network
 spec:
+  driftDetection:
+    mode: enabled
   interval: 5m
   install:
     remediation:

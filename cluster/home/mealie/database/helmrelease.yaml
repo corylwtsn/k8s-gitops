@@ -3,6 +3,8 @@ kind: HelmRelease
 metadata:
   name: &app mealie-postgresql
 spec:
+  driftDetection:
+    mode: enabled
   chart:
     spec:
       chart: cluster
