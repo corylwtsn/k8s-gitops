@@ -5,6 +5,8 @@ metadata:
   name: &app memos
 spec:
   interval: 30m
+  dependsOn:
+    - name: memos-postgresql
   upgrade:
     force: true
   chart:
