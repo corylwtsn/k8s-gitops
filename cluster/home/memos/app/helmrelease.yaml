@@ -7,8 +7,14 @@ spec:
   interval: 30m
   dependsOn:
     - name: memos-postgresql
+  install:
+    remediation:
+      retries: 3
   upgrade:
     force: true
+    remediation:
+      retries: 3
+      remediateLastFailure: true
   chart:
     spec:
       chart: app-template

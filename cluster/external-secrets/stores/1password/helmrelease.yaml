@@ -5,8 +5,14 @@ metadata:
   name: &app onepassword-connect
 spec:
   interval: 30m
+  install:
+    remediation:
+      retries: 3
   upgrade:
     force: true
+    remediation:
+      retries: 3
+      remediateLastFailure: true
   chart:
     spec:
       chart: app-template

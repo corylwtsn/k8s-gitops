@@ -14,6 +14,13 @@ spec:
         namespace: flux-system
       interval: 30m
   interval: 30m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+      remediateLastFailure: true
   values:
     controllers:
       system-upgrade-controller:
