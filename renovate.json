@@ -3,8 +3,7 @@
   "extends": [
     "config:best-practices",
     "docker:enableMajor",
-    "security:openssf-scorecard",
-    ":semanticCommits",
+":semanticCommits",
     ":timezone(America/New_York)"
   ],
   "flux": {
