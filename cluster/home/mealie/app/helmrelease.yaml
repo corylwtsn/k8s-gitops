@@ -4,6 +4,8 @@ metadata:
   name: &app mealie
 spec:
   interval: 30m
+  dependsOn:
+    - name: mealie-postgresql
   chart:
     spec:
       chart: app-template

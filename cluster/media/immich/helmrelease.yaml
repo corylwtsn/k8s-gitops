@@ -5,6 +5,8 @@ metadata:
   name: immich
   namespace: media
 spec:
+  dependsOn:
+    - name: immich-postgres
   chart:
     spec:
       chart: immich

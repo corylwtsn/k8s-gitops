@@ -4,6 +4,8 @@ kind: HelmRelease
 metadata:
   name: &app planka
 spec:
+  dependsOn:
+    - name: planka-postgres
   chart:
     spec:
       chart: *app
