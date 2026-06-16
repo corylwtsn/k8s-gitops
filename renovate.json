@@ -6,7 +6,7 @@
     ":semanticCommits",
     ":timezone(America/New_York)"
   ],
-  "enableVulnerabilityAlerts": false,
+  "osvVulnerabilityAlerts": false,
   "flux": {
     "managerFilePatterns": [
       "/(^|/)cluster/.+\\.ya?ml$/"
