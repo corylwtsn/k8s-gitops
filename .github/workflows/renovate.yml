@@ -20,4 +20,4 @@ jobs:
         with:
           token: ${{ github.token }}
         env:
-          RENOVATE_REPOSITORIES: corylwtsn/k8s-gitops
+          RENOVATE_REPOSITORIES: corylwtsn/k8s-gitops,corylwtsn/media-stack
