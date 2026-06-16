@@ -29,7 +29,7 @@ spec:
       mode: standalone
 
     cluster:
-      instances: 1
+      instances: 2
       imageName: "ghcr.io/tensorchord/cloudnative-vectorchord:18-1.1.1@sha256:392b53675b403d6a2c72b673cc488a7c272514755dd818c622fb9ce4665193c4"
       storage:
         size: 5Gi
