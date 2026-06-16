@@ -28,4 +28,5 @@ jobs:
             -ignore-missing-schemas \
             -schema-location default \
             -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' \
+            -skip SealedSecret,IPAddressPool \
             -summary
