@@ -70,7 +70,7 @@ spec:
         tls:
           - hosts:
               - watch.internal.wat.sn
-            secretName: jellfyin-ingress-cert
+            secretName: jellyfin-ingress-cert
     persistence:
       config:
         existingClaim: jellyfin-config
