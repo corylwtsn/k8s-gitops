@@ -26,12 +26,21 @@ spec:
   values:
     rbac:
       create: true
-    replicaCount: 1
+    replicaCount: 2
     isClusterService: false
     serviceType: LoadBalancer
     service:
       externalTrafficPolicy: Cluster
       loadBalancerIP: 192.168.0.0
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: coredns
+              topologyKey: kubernetes.io/hostname
     servers:
       - zones:
         - zone: .
@@ -72,84 +81,6 @@ spec:
             endpoint https://10.0.99.50:2379 https://10.0.99.51:2379 https://10.0.99.52:2379
             tls /etc/coredns/tls/etcd/server-client.crt /etc/coredns/tls/etcd/server-client.key /etc/coredns/tls/etcd/server-ca.crt
     extraSecrets:
-      - name: etcd-certs
-        mountPath: /etc/coredns/tls/etcd
-        defaultMode: 420
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: coredns-secondary
-  namespace: network
-spec:
-  driftDetection:
-    mode: enabled
-  interval: 5m
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    remediation:
-      retries: 3
-      remediateLastFailure: true
-  chart:
-    spec:
-      chart: coredns
-      version: 1.46.0
-      sourceRef:
-        kind: HelmRepository
-        name: coredns-charts
-        namespace: flux-system
-      interval: 5m
-  values:
-    rbac:
-      create: true
-    replicaCount: 1
-    isClusterService: false
-    serviceType: LoadBalancer
-    service:
-      externalTrafficPolicy: Cluster
-      loadBalancerIP: 192.168.0.1
-    servers:
-      - zones:
-        - zone: .
-          scheme: dns://
-        - zone: internal.corywatson.net.
-          scheme: dns://
-          # use_tcp: true
-        - zone: external.corywatson.net.
-          scheme: dns://
-        - zone: internal.wat.sn.
-          scheme: dns://
-        port: 53
-        plugins:
-        - name: errors
-        # Serves a /health endpoint on :8080, required for livenessProbe
-        - name: health
-          configBlock: |-
-            lameduck 5s
-        # Serves a /ready endpoint on :8181, required for readinessProbe
-        - name: ready
-        # Serves a /metrics endpoint on :9153, required for serviceMonitor
-        - name: prometheus
-          parameters: 0.0.0.0:9153
-        - name: forward
-          parameters: . 208.67.222.222:53 208.67.220.220:53
-          configBlock: |-
-              except *.external.corywatson.net *.internal.corywatson.net *.internal.wat.sn
-        - name: cache
-          parameters: 30
-        - name: loop
-        - name: loadbalance
-        - name: log
-        - name: etcd
-          parameters:  internal.corywatson.net external.corywatson.net internal.wat.sn
-          configBlock: |-
-            stubzones
-            path /skydns
-            endpoint https://10.0.99.50:2379 https://10.0.99.51:2379 https://10.0.99.52:2379
-            tls /etc/coredns/tls/etcd/server-client.crt /etc/coredns/tls/etcd/server-client.key /etc/coredns/tls/etcd/server-ca.crt
-    extraSecrets: 
       - name: etcd-certs
         mountPath: /etc/coredns/tls/etcd
         defaultMode: 420
