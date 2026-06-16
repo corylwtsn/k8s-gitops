@@ -1,0 +1,157 @@
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: observability
+spec:
+  interval: 1h
+  driftDetection:
+    mode: enabled
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: 86.2.3
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+      interval: 24h
+  values:
+    # ── Prometheus ────────────────────────────────────────────────────────────
+    prometheus:
+      prometheusSpec:
+        nodeSelector:
+          kubernetes.io/arch: amd64
+        retention: 14d
+        retentionSize: 15GB
+        # Tuned for NFS: tolerate 150s of NAS blip before killing pod mid-WAL-recovery
+        livenessProbeFailureThreshold: 10
+        livenessProbePeriodSeconds: 15
+        livenessProbeTimeoutSeconds: 5
+        # Discover monitors/rules/probes in all namespaces
+        podMonitorSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        ruleSelectorNilUsesHelmValues: false
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: freenas-nfs-csi
+              accessModes: [ReadWriteOnce]
+              resources:
+                requests:
+                  storage: 25Gi
+
+    # ── Grafana ───────────────────────────────────────────────────────────────
+    grafana:
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      # Admin credentials from ESO — chart looks for admin-user and admin-password keys
+      admin:
+        existingSecret: grafana-admin
+        userKey: admin-user
+        passwordKey: admin-password
+      # OIDC client ID/secret injected as GF_AUTH_GENERIC_OAUTH_CLIENT_* env vars
+      envFromSecret: grafana-oidc
+      persistence:
+        enabled: true
+        storageClassName: freenas-nfs-csi
+        size: 2Gi
+      ingress:
+        enabled: false
+      sidecar:
+        dashboards:
+          enabled: true
+          searchNamespace: ALL
+        datasources:
+          enabled: true
+          searchNamespace: ALL
+      "grafana.ini":
+        server:
+          root_url: https://grafana.internal.wat.sn
+        auth.generic_oauth:
+          enabled: true
+          name: Authentik
+          scopes: openid profile email goauthentik.io/userinfo
+          auth_url: https://auth.wat.sn/application/o/grafana/authorize/
+          token_url: https://auth.wat.sn/application/o/grafana/token/
+          api_url: https://auth.wat.sn/application/o/userinfo/
+          # GF_AUTH_GENERIC_OAUTH_CLIENT_ID and _CLIENT_SECRET come from envFromSecret
+          role_attribute_path: contains(groups[*], 'grafana-admins') && 'Admin' || 'Viewer'
+          allow_sign_up: true
+        users:
+          auto_assign_org_role: Viewer
+
+    # ── Alertmanager ──────────────────────────────────────────────────────────
+    alertmanager:
+      alertmanagerSpec:
+        nodeSelector:
+          kubernetes.io/arch: amd64
+        replicas: 1
+        secrets:
+          - alertmanager-discord
+          - alertmanager-healthchecks
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: freenas-nfs-csi
+              accessModes: [ReadWriteOnce]
+              resources:
+                requests:
+                  storage: 1Gi
+      config:
+        global:
+          resolve_timeout: 5m
+        inhibit_rules:
+          - source_matchers:
+              - severity = critical
+            target_matchers:
+              - severity = warning
+            equal: [alertname, namespace]
+        route:
+          receiver: default
+          group_by: [alertname, namespace]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 12h
+          routes:
+            - receiver: deadman
+              matchers:
+                - name: alertname
+                  value: Watchdog
+              group_wait: 0s
+              group_interval: 2m
+              repeat_interval: 2m
+            - receiver: critical
+              matchers:
+                - name: severity
+                  value: critical
+        receivers:
+          - name: default
+            discord_configs:
+              - webhook_url_file: /etc/alertmanager/secrets/alertmanager-discord/webhook-url
+          - name: critical
+            discord_configs:
+              - webhook_url_file: /etc/alertmanager/secrets/alertmanager-discord/critical-webhook-url
+          - name: deadman
+            webhook_configs:
+              - url_file: /etc/alertmanager/secrets/alertmanager-healthchecks/ping-url
+                send_resolved: false
+
+    # ── Node exporter ─────────────────────────────────────────────────────────
+    # Explicit toleration so node-exporter runs on the 3 arm64 control-plane RPi nodes
+    prometheus-node-exporter:
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
