@@ -107,6 +107,25 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
+    # ── Control plane component scraping ──────────────────────────────────────
+    # k3s runs controller-manager and scheduler embedded in the server binary.
+    # They bind to 127.0.0.1 by default; bind-address=0.0.0.0 must be set in
+    # /etc/rancher/k3s/config.yaml on each server node + k3s restarted.
+    # Bearer token auth (standard RBAC) works — no authorization-always-allow-paths needed.
+    kubeControllerManager:
+      endpoints:
+        - 10.0.99.50
+        - 10.0.99.51
+        - 10.0.99.52
+    kubeScheduler:
+      endpoints:
+        - 10.0.99.50
+        - 10.0.99.51
+        - 10.0.99.52
+    # k3s has no kube-proxy process — disable the ServiceMonitor and alert entirely
+    kubeProxy:
+      enabled: false
+
     # ── Node exporter ─────────────────────────────────────────────────────────
     # Explicit toleration so node-exporter runs on the 3 arm64 control-plane RPi nodes
     prometheus-node-exporter:
