@@ -56,12 +56,10 @@ spec:
     grafana:
       nodeSelector:
         kubernetes.io/arch: amd64
-      # Admin credentials from ESO — chart looks for admin-user and admin-password keys
       admin:
         existingSecret: grafana-admin
         userKey: admin-user
         passwordKey: admin-password
-      # OIDC client ID/secret injected as GF_AUTH_GENERIC_OAUTH_CLIENT_* env vars
       envFromSecret: grafana-oidc
       persistence:
         enabled: true
@@ -86,7 +84,6 @@ spec:
           auth_url: https://auth.wat.sn/application/o/authorize/
           token_url: https://auth.wat.sn/application/o/token/
           api_url: https://auth.wat.sn/application/o/userinfo/
-          # GF_AUTH_GENERIC_OAUTH_CLIENT_ID and _CLIENT_SECRET come from envFromSecret
           role_attribute_path: contains(groups[*], 'grafana-admins') && 'Admin' || 'Viewer'
           allow_sign_up: true
         users:
@@ -107,6 +104,15 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
+
+    # k3s binds these to 127.0.0.1 by default; requires bind-address=0.0.0.0 in k3s config
+    kubeControllerManager:
+      endpoints: [10.0.99.50, 10.0.99.51, 10.0.99.52]
+    kubeScheduler:
+      endpoints: [10.0.99.50, 10.0.99.51, 10.0.99.52]
+    kubeProxy:
+      enabled: false  # k3s has no kube-proxy
+
     # ── Node exporter ─────────────────────────────────────────────────────────
     # Explicit toleration so node-exporter runs on the 3 arm64 control-plane RPi nodes
     prometheus-node-exporter:
