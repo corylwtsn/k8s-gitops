@@ -3,9 +3,10 @@
   "extends": [
     "config:best-practices",
     "docker:enableMajor",
-":semanticCommits",
+    ":semanticCommits",
     ":timezone(America/New_York)"
   ],
+  "enableVulnerabilityAlerts": false,
   "flux": {
     "managerFilePatterns": [
       "/(^|/)cluster/.+\\.ya?ml$/"
