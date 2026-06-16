@@ -83,8 +83,8 @@ spec:
           enabled: true
           name: Authentik
           scopes: openid profile email goauthentik.io/userinfo
-          auth_url: https://auth.wat.sn/application/o/grafana/authorize/
-          token_url: https://auth.wat.sn/application/o/grafana/token/
+          auth_url: https://auth.wat.sn/application/o/authorize/
+          token_url: https://auth.wat.sn/application/o/token/
           api_url: https://auth.wat.sn/application/o/userinfo/
           # GF_AUTH_GENERIC_OAUTH_CLIENT_ID and _CLIENT_SECRET come from envFromSecret
           role_attribute_path: contains(groups[*], 'grafana-admins') && 'Admin' || 'Viewer'
