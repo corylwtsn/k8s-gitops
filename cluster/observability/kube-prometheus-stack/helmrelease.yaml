@@ -27,6 +27,7 @@ spec:
         namespace: flux-system
       interval: 24h
   values:
+    # ── Prometheus ────────────────────────────────────────────────────────────
     prometheus:
       prometheusSpec:
         nodeSelector:
@@ -37,6 +38,7 @@ spec:
         livenessProbeFailureThreshold: 10
         livenessProbePeriodSeconds: 15
         livenessProbeTimeoutSeconds: 5
+        # Discover monitors/rules/probes in all namespaces
         podMonitorSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
@@ -50,6 +52,7 @@ spec:
                 requests:
                   storage: 25Gi
 
+    # ── Grafana ───────────────────────────────────────────────────────────────
     grafana:
       nodeSelector:
         kubernetes.io/arch: amd64
@@ -86,6 +89,7 @@ spec:
         users:
           auto_assign_org_role: Viewer
 
+    # ── Alertmanager ──────────────────────────────────────────────────────────
     alertmanager:
       alertmanagerSpec:
         nodeSelector:
@@ -109,6 +113,8 @@ spec:
     kubeProxy:
       enabled: false  # k3s has no kube-proxy
 
+    # ── Node exporter ─────────────────────────────────────────────────────────
+    # Explicit toleration so node-exporter runs on the 3 arm64 control-plane RPi nodes
     prometheus-node-exporter:
       tolerations:
         - key: node-role.kubernetes.io/control-plane
