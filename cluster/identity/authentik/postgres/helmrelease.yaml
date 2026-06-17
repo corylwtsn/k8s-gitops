@@ -37,6 +37,9 @@ spec:
       enableSuperuserAccess: false
       enablePDB: true
 
+      monitoring:
+        enabled: true
+
       initdb:
         database: authentik
         owner: authentik-user
