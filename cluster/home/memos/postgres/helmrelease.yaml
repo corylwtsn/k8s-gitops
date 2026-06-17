@@ -57,6 +57,9 @@ spec:
 
       monitoring:
         enabled: true
+        prometheusRule:
+          excludeRules:
+            - CNPGClusterHAWarning
 
       initdb:
         database: memos
