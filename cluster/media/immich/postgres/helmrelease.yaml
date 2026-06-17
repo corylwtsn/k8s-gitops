@@ -39,6 +39,9 @@ spec:
 
       monitoring:
         enabled: true
+        prometheusRule:
+          excludeRules:
+            - CNPGClusterHAWarning
 
       postgresql:
         shared_preload_libraries:
