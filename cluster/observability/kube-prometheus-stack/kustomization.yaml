@@ -1,5 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+# All resources here are already observability-namespaced; this also scopes the
+# generated dashboard ConfigMap (does not touch HelmRelease sourceRef.namespace).
+namespace: observability
 resources:
   - external-secret-alertmanager-config.yaml
   - external-secret-discord.yaml
@@ -9,3 +12,13 @@ resources:
   - helmrelease.yaml
   - ingress.yaml
   - prometheusrule-pvc.yaml
+configMapGenerator:
+  # CloudNativePG dashboard - grafana.com 20417, pinned to revision 4 (2025-04-14).
+  # Update by re-downloading from /api/dashboards/20417/revisions/<rev>/download.
+  # The grafana_dashboard label is what the kube-prometheus-stack sidecar watches.
+  - name: cnpg-dashboard
+    files:
+      - cnpg.json=cnpg-dashboard.json
+    options:
+      labels:
+        grafana_dashboard: "1"

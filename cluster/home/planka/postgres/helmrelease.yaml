@@ -36,6 +36,9 @@ spec:
       enableSuperuserAccess: false
       enablePDB: true
 
+      monitoring:
+        enabled: true
+
       initdb:
         database: planka
         owner: planka
