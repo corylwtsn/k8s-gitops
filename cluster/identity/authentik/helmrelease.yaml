@@ -54,6 +54,11 @@ spec:
         accountId: geoipId
         licenseKey: geoipKey
     server:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+          interval: 30s
       ingress:
         enabled: true
         ingressClassName: "nginx"
@@ -67,3 +72,9 @@ spec:
         hosts:
         - auth.internal.wat.sn
         - auth.wat.sn
+    worker:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+          interval: 30s
