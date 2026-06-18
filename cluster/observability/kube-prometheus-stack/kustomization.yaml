@@ -12,6 +12,7 @@ resources:
   - helmrelease.yaml
   - ingress.yaml
   - prometheusrule-pvc.yaml
+  - prometheusrule-flux.yaml
 configMapGenerator:
   # CloudNativePG dashboard - grafana.com 20417, pinned to revision 4 (2025-04-14).
   # Update by re-downloading from /api/dashboards/20417/revisions/<rev>/download.
