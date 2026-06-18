@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - authentik.yaml
   - prometheus-community.yaml
-  - bitnami.yaml
   - bjw-s.yaml
   - cloudnative-pg.yaml
   - coredns.yaml
@@ -13,11 +12,8 @@ resources:
   - immich.yaml
   - ingress-nginx.yaml
   - jetstack.yaml
-  - k8s-at-home.yaml
   - metallb.yaml
-  - minecraft.yaml
   - node-feature-discovery.yaml
   - planka.yaml
   - renovate.yaml
   - sealed-secrets.yaml
-  - stable.yaml
