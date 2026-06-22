@@ -35,6 +35,21 @@ spec:
         storageClass: "freenas-nfs-csi"
       services:
         disabledDefaultServices: ["ro", "r"]
+        additional:
+          - selectorType: rw
+            serviceTemplate:
+              metadata:
+                name: "memos-db-lb"
+                annotations:
+                  external-dns.alpha.kubernetes.io/hostname: db.memos.internal.wat.sn.
+              spec:
+                type: LoadBalancer
+                loadBalancerIP: 192.168.0.6
+                ports:
+                  - name: postgres
+                    port: 5432
+                    targetPort: 5432
+                    protocol: TCP
       certificates:
         serverCASecret: memos-db-cert
         serverTLSSecret: memos-db-cert
