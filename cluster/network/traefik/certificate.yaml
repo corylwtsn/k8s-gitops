@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-wat-sn-tls
+spec:
+  secretName: wildcard-wat-sn-tls
+  dnsNames:
+    - "*.wat.sn"
+    - "*.internal.wat.sn"
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+    group: cert-manager.io
