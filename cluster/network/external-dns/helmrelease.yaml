@@ -33,6 +33,7 @@ spec:
     sources:
       - service
       - ingress
+      - gateway-httproute
       - crd
     policy: upsert-only
     interval: 1m
