@@ -39,26 +39,6 @@ spec:
       enabled: true
       existingClaim: planka-data
 
-    ingress:
-      enabled: true
-      className: "nginx"
-      annotations:
-         cert-manager.io/cluster-issuer: letsencrypt-prod
-      hosts:
-        - host: &appHost planka.wat.sn
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
-        - host: &appHostInternal planka.internal.wat.sn
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
-      tls:
-      - secretName: planka-cert
-        hosts:
-        - *appHost
-        - *appHostInternal
-
     postgresql:
       enabled: false
 
