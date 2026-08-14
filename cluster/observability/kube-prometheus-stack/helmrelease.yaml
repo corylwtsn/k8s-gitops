@@ -29,6 +29,15 @@ spec:
   values:
     # ── Prometheus ────────────────────────────────────────────────────────────
     prometheus:
+      route:
+        main:
+          enabled: true
+          hostnames:
+            - prometheus.internal.wat.sn
+          parentRefs:
+            - name: traefik-gateway
+              namespace: network
+              sectionName: websecure
       prometheusSpec:
         externalUrl: http://prometheus.internal.wat.sn
         nodeSelector:
@@ -68,6 +77,15 @@ spec:
         size: 2Gi
       ingress:
         enabled: false
+      route:
+        main:
+          enabled: true
+          hostnames:
+            - grafana.internal.wat.sn
+          parentRefs:
+            - name: traefik-gateway
+              namespace: network
+              sectionName: websecure
       sidecar:
         dashboards:
           enabled: true
@@ -92,6 +110,15 @@ spec:
 
     # ── Alertmanager ──────────────────────────────────────────────────────────
     alertmanager:
+      route:
+        main:
+          enabled: true
+          hostnames:
+            - alertmanager.internal.wat.sn
+          parentRefs:
+            - name: traefik-gateway
+              namespace: network
+              sectionName: websecure
       alertmanagerSpec:
         nodeSelector:
           kubernetes.io/arch: amd64
