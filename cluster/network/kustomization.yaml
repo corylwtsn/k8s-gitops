@@ -9,6 +9,5 @@ resources:
   - etcd
   - external-dns
   - gateway-api
-  - ingress-nginx
   - metallb
   - traefik

@@ -10,7 +10,6 @@ resources:
   - external-dns.yaml
   - external-secrets.yaml
   - immich.yaml
-  - ingress-nginx.yaml
   - jetstack.yaml
   - metallb.yaml
   - node-feature-discovery.yaml
