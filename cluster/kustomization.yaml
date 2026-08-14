@@ -4,7 +4,6 @@ resources:
   - cert-manager
   - cnpg
   - default
-  - external
   - external-secrets
   - flux-system
   - home
