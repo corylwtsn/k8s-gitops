@@ -55,22 +55,15 @@ spec:
         ports:
           http:
             port: 8096
-    ingress:
+    route:
       main:
-        className: nginx
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-prod"
-        hosts:
-          - host: watch.internal.wat.sn
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
-        tls:
-          - hosts:
-              - watch.internal.wat.sn
-            secretName: jellyfin-ingress-cert
+        kind: HTTPRoute
+        hostnames:
+          - watch.internal.wat.sn
+        parentRefs:
+          - name: traefik-gateway
+            namespace: network
+            sectionName: websecure
     persistence:
       config:
         existingClaim: jellyfin-config
