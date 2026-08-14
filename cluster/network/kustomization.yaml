@@ -7,5 +7,6 @@ resources:
   - dns-records
   - etcd
   - external-dns
+  - gateway-api
   - ingress-nginx
   - metallb
