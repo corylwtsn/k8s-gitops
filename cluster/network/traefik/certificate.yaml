@@ -2,6 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: wildcard-wat-sn-tls
+  namespace: network
 spec:
   secretName: wildcard-wat-sn-tls
   dnsNames:
