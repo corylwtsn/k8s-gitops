@@ -48,31 +48,16 @@ spec:
         ports:
           http:
             port: *apiPort
-    ingress:
+    route:
       main:
-        className: nginx
-        annotations:
-          # proxy-body-size is set to 0 to remove the body limit on file uploads
-          nginx.ingress.kubernetes.io/proxy-body-size: "0"
-          cert-manager.io/cluster-issuer: "letsencrypt-prod"
-        hosts:
-          - host: &ihost "memos.internal.wat.sn"
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
-          - host: &host "memos.wat.sn"
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
-              - *ihost
-            secretName: memos-cert
+        kind: HTTPRoute
+        hostnames:
+          - memos.internal.wat.sn
+          - memos.wat.sn
+        parentRefs:
+          - name: traefik-gateway
+            namespace: network
+            sectionName: websecure
     persistence:
       resources:
         existingClaim: memos-resources
