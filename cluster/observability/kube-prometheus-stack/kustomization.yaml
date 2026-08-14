@@ -10,7 +10,6 @@ resources:
   - external-secret-grafana-oidc.yaml
   - external-secret-grafana-admin.yaml
   - helmrelease.yaml
-  - ingress.yaml
   - prometheusrule-pvc.yaml
   - prometheusrule-flux.yaml
 configMapGenerator:
