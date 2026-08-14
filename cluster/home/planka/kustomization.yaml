@@ -6,4 +6,5 @@ resources:
 - helmrelease.yaml
 - external-secret.yaml
 - pvc.yaml
+- httproute.yaml
 - postgres/helmrelease.yaml

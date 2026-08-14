@@ -59,19 +59,16 @@ spec:
         serviceMonitor:
           enabled: true
           interval: 30s
-      ingress:
-        enabled: true
-        ingressClassName: "nginx"
-        tls:
-          - hosts:
+      route:
+        main:
+          enabled: true
+          hostnames:
             - auth.internal.wat.sn
             - auth.wat.sn
-            secretName: auth-cert
-        annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-prod
-        hosts:
-        - auth.internal.wat.sn
-        - auth.wat.sn
+          parentRefs:
+            - name: traefik-gateway
+              namespace: network
+              sectionName: websecure
     worker:
       metrics:
         enabled: true
