@@ -62,29 +62,16 @@ spec:
                 repository: ghcr.io/immich-app/immich-server
                 pullPolicy: IfNotPresent
                 tag: v2.7.5@sha256:c15bff75068effb03f4355997d03dc7e0fc58720c2b54ad6f7f10d1bc57efaa5
-      ingress:
+      route:
         main:
-          enabled: true
-          className: "nginx"
-          annotations:
-            nginx.ingress.kubernetes.io/proxy-body-size: "0"
-            cert-manager.io/cluster-issuer: "letsencrypt-prod"
-          hosts:
-            - host: photos.internal.wat.sn
-              paths:
-                - path: "/"
-                  service:
-                    identifier: main
-            - host: photos.wat.sn
-              paths:
-                - path: "/"
-                  service:
-                    identifier: main
-          tls:
-            - hosts:
-                - photos.internal.wat.sn
-                - photos.corywatson.net
-              secretName: immich-ingress-cert
+          kind: HTTPRoute
+          hostnames:
+            - photos.internal.wat.sn
+            - photos.wat.sn
+          parentRefs:
+            - name: traefik-gateway
+              namespace: network
+              sectionName: websecure
 
     machine-learning:
       enabled: true
