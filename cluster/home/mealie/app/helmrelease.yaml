@@ -72,29 +72,16 @@ spec:
           http:
             port: 9000
 
-    ingress:
+    route:
       main:
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-prod"
-        className: "nginx"
-        hosts:
-          - host: &ihost "mealie.internal.wat.sn"
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
-          - host: &host mealie.wat.sn
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
-              - *ihost
-            secretName: mealie-ingress-cert
+        kind: HTTPRoute
+        hostnames:
+          - mealie.internal.wat.sn
+          - mealie.wat.sn
+        parentRefs:
+          - name: traefik-gateway
+            namespace: network
+            sectionName: websecure
 
     persistence:
       config:

@@ -60,44 +60,32 @@ spec:
           code-server:
             port: 8080
 
-    ingress:
+    route:
       app:
-        className: nginx
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-prod"
-        hosts:
-          - host: &ihost "ha.internal.wat.sn"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-          - host: &host "ha.wat.sn"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-              - *ihost
-            secretName: home-assistant-cert
+        kind: HTTPRoute
+        hostnames:
+          - ha.internal.wat.sn
+          - ha.wat.sn
+        parentRefs:
+          - name: traefik-gateway
+            namespace: network
+            sectionName: websecure
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 8123
       code:
-        className: nginx
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-prod"
-        hosts:
-          - host: &codeihost "ha-code.internal.wat.sn"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: code-server
-        tls:
-          - hosts:
-              - *codeihost
-            secretName: home-assistant-code-cert
+        kind: HTTPRoute
+        hostnames:
+          - ha-code.internal.wat.sn
+        parentRefs:
+          - name: traefik-gateway
+            namespace: network
+            sectionName: websecure
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 8080
     persistence:
       config:
         existingClaim: home-assistant-config

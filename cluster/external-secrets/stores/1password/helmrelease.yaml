@@ -59,22 +59,15 @@ spec:
         ports:
           http:
             port: *apiPort
-    ingress:
+    route:
       api:
-        className: nginx
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-prod"
-        hosts:
-          - host: &host "1pconnect.internal.wat.sn"
-            paths:
-              - path: /
-                service:
-                  identifier: api
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: 1password-connect-ingress-cert
+        kind: HTTPRoute
+        hostnames:
+          - 1pconnect.internal.wat.sn
+        parentRefs:
+          - name: traefik-gateway
+            namespace: network
+            sectionName: websecure
     persistence:
       shared:
         type: emptyDir
