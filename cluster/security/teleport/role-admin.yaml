@@ -6,7 +6,7 @@ metadata:
 spec:
   allow:
     logins:
-      - "{{internal.logins}}"
+      - "tp-{{internal.logins}}"
     node_labels:
       "*": ["*"]
     host_sudoers:
