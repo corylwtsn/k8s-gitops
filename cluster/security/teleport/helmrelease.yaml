@@ -37,3 +37,5 @@ spec:
     persistence:
       enabled: true
       existingClaimName: teleport-data
+    operator:
+      enabled: true
