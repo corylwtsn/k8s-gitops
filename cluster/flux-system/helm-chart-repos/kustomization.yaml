@@ -16,4 +16,5 @@ resources:
   - planka.yaml
   - renovate.yaml
   - sealed-secrets.yaml
+  - teleport.yaml
   - traefik.yaml
