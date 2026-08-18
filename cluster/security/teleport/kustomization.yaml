@@ -5,3 +5,5 @@ resources:
   - certificate.yaml
   - pvc.yaml
   - helmrelease.yaml
+  - role-admin.yaml
+  - role-agent-readonly.yaml

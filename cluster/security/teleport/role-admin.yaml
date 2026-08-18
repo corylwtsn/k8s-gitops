@@ -1,0 +1,16 @@
+apiVersion: resources.teleport.dev/v1
+kind: TeleportRoleV8
+metadata:
+  name: admin-access
+  namespace: teleport
+spec:
+  allow:
+    logins:
+      - "tp-{{internal.logins}}"
+    node_labels:
+      "*": ["*"]
+    host_sudoers:
+      - "ALL=(ALL) NOPASSWD: ALL"
+  options:
+    create_host_user_mode: keep
+    create_host_user_default_shell: /bin/bash

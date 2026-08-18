@@ -1,0 +1,16 @@
+apiVersion: resources.teleport.dev/v1
+kind: TeleportRoleV8
+metadata:
+  name: agent-readonly
+  namespace: teleport
+spec:
+  allow:
+    logins:
+      - "{{internal.logins}}"
+    node_labels:
+      "*": ["*"]
+    host_groups:
+      - adm
+  options:
+    create_host_user_mode: keep
+    create_host_user_default_shell: /bin/bash
