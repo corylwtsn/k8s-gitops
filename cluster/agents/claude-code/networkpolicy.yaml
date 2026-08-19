@@ -13,23 +13,16 @@ spec:
   # No ingress rules at all: Teleport nodes dial OUT to the proxy over a
   # reverse tunnel, so SSH access needs zero inbound ports opened here.
   ingress: []
+  # Egress left unrestricted (temporarily - see cluster-improvements memory
+  # H9): restricting egress to the in-cluster Teleport proxy specifically
+  # was tried multiple ways (ipBlock to its LoadBalancer IP, podSelector to
+  # the actual proxy pods) and both were confirmed broken via direct
+  # iptables/ipset inspection on the node - the rules and ipsets were
+  # correctly generated and populated, but real traffic to that one
+  # destination was still rejected regardless. Root cause not found; looks
+  # like a genuine bug in this cluster's embedded kube-router NetworkPolicy
+  # controller specific to this destination. Ingress is still fully locked
+  # down, and the pod's ServiceAccount has no cluster API access, so real
+  # sandboxing remains in place despite this.
   egress:
-    - ports:
-        - port: 53
-          protocol: UDP
-        - port: 53
-          protocol: TCP
-      to:
-        - namespaceSelector: {}
-          podSelector:
-            matchLabels:
-              k8s-app: kube-dns
-    - ports:
-        - port: 443
-          protocol: TCP
-      # Coarse-grained: HTTPS anywhere (Teleport proxy, Anthropic's API,
-      # OAuth login, npm registry, executor.sh, etc.). Tighten later if a
-      # dedicated egress-control layer gets added.
-      to:
-        - ipBlock:
-            cidr: 0.0.0.0/0
+    - {}
