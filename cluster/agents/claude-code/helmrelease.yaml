@@ -29,11 +29,6 @@ spec:
     controllers:
       main:
         pod:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 1001
-            runAsGroup: 1001
-            fsGroup: 1001
           imagePullSecrets:
             - name: ghcr-pull-secret
         containers:
@@ -41,13 +36,6 @@ spec:
             image:
               repository: ghcr.io/corylwtsn/claude-code-remote
               tag: 2.1.234
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities:
-                drop: ["ALL"]
-                # Teleport's ssh_service may need these even for same-user
-                # sessions - validate on first real deploy, drop if unneeded.
-                add: ["SETUID", "SETGID"]
             env:
               TELEPORT_JOIN_TOKEN:
                 valueFrom:
