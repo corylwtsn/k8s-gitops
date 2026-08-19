@@ -8,7 +8,7 @@ data:
     version: v3
     teleport:
       nodename: claude-code-dev
-      data_dir: /home/claude/.teleport-data
+      data_dir: /home/.teleport-data
       proxy_server: teleport.internal.wat.sn:443
     auth_service:
       enabled: false
