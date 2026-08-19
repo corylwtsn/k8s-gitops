@@ -59,7 +59,7 @@ spec:
       home:
         existingClaim: claude-code-home
         globalMounts:
-          - path: /home/claude
+          - path: /home
       git:
         existingClaim: claude-code-git
         globalMounts:
