@@ -36,6 +36,7 @@ spec:
             image:
               repository: ghcr.io/corylwtsn/claude-code-remote
               tag: 2.1.234
+              pullPolicy: Always
             env:
               TELEPORT_JOIN_TOKEN:
                 valueFrom:
