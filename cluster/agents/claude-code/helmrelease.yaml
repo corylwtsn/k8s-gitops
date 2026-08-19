@@ -71,6 +71,10 @@ spec:
         existingClaim: claude-code-home
         globalMounts:
           - path: /home/claude
+      git:
+        existingClaim: claude-code-git
+        globalMounts:
+          - path: /home/code
       teleport-config:
         type: configMap
         name: claude-code-teleport-config
