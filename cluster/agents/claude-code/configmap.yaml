@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: claude-code-teleport-config
+  namespace: agents
+data:
+  teleport.yaml: |
+    version: v3
+    teleport:
+      nodename: claude-code-dev
+      data_dir: /home/claude/.teleport-data
+      proxy_server: teleport.internal.wat.sn:443
+    auth_service:
+      enabled: false
+    proxy_service:
+      enabled: false
+    ssh_service:
+      enabled: true
+      labels:
+        type: dev-pod

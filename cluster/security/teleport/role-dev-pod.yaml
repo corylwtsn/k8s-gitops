@@ -1,0 +1,11 @@
+apiVersion: resources.teleport.dev/v1
+kind: TeleportRoleV8
+metadata:
+  name: dev-pod-access
+  namespace: teleport
+spec:
+  allow:
+    logins:
+      - claude
+    node_labels:
+      type: ["dev-pod"]

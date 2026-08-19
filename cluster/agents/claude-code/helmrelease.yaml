@@ -1,0 +1,84 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-5.0.1/charts/other/app-template/values.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: claude-code
+  namespace: agents
+spec:
+  driftDetection:
+    mode: enabled
+  chart:
+    spec:
+      chart: app-template
+      version: 5.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  interval: 30m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    force: true
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+  values:
+    controllers:
+      main:
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1001
+            runAsGroup: 1001
+            fsGroup: 1001
+          imagePullSecrets:
+            - name: ghcr-pull-secret
+        containers:
+          app:
+            image:
+              repository: ghcr.io/corylwtsn/claude-code-remote
+              tag: 2.1.234
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop: ["ALL"]
+                # Teleport's ssh_service may need these even for same-user
+                # sessions - validate on first real deploy, drop if unneeded.
+                add: ["SETUID", "SETGID"]
+            env:
+              TELEPORT_JOIN_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: claude-code-join-token
+                    key: token
+              TELEPORT_CA_PIN:
+                valueFrom:
+                  secretKeyRef:
+                    name: claude-code-join-token
+                    key: ca-pin
+            resources:
+              requests:
+                cpu: 250m
+                memory: 512Mi
+              limits:
+                cpu: "2"
+                memory: 4Gi
+    persistence:
+      home:
+        existingClaim: claude-code-home
+        globalMounts:
+          - path: /home/claude
+      git:
+        existingClaim: claude-code-git
+        globalMounts:
+          - path: /home/code
+      teleport-config:
+        type: configMap
+        name: claude-code-teleport-config
+        globalMounts:
+          - path: /etc/teleport/teleport.yaml
+            subPath: teleport.yaml
+            readOnly: true
