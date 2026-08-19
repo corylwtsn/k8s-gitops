@@ -7,3 +7,4 @@ resources:
   - helmrelease.yaml
   - role-admin.yaml
   - role-agent-readonly.yaml
+  - role-dev-pod.yaml
