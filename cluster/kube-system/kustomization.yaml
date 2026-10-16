@@ -6,3 +6,4 @@ resources:
   - democratic-csi
   - intel-device-plugin-operator
   - sealed-secrets
+  - snapshot-controller
