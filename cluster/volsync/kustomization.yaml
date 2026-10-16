@@ -4,3 +4,4 @@ namespace: volsync-system
 resources:
   - namespace.yaml
   - helmrelease.yaml
+  - mealie-data-secret.yaml

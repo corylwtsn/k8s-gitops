@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: mealie-data
+spec:
+  sourcePVC: mealie-data
+  trigger:
+    schedule: "0 4 * * *"
+  restic:
+    repository: mealie-data-volsync
+    copyMethod: Snapshot
+    volumeSnapshotClassName: freenas-nfs-csi
+    storageClassName: freenas-nfs-csi
+    accessModes:
+      - ReadWriteOnce
+    cacheCapacity: 1Gi
+    pruneIntervalDays: 14
+    retain:
+      daily: 14
+      weekly: 8
+      monthly: 6
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
