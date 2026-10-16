@@ -66,6 +66,11 @@ spec:
       node-stage-secret:
       node-publish-secret:
       controller-expand-secret:
+    volumeSnapshotClasses:
+    - name: freenas-iscsi-csi
+      deletionPolicy: Delete
+      parameters:
+        detachedSnapshots: "false"
     controller:
       externalAttacher:
         enabled: false
