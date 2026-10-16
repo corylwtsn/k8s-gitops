@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: claude-code-home
+  namespace: agents
+spec:
+  sourcePVC: claude-code-home
+  trigger:
+    schedule: "0 5 4 * * *"
+  restic:
+    repository: claude-code-home-volsync
+    copyMethod: Snapshot
+    volumeSnapshotClassName: freenas-nfs-csi
+    storageClassName: freenas-nfs-csi
+    cacheStorageClassName: freenas-nfs-csi
+    accessModes:
+      - ReadWriteOnce
+    cacheCapacity: 1Gi
+    pruneIntervalDays: 14
+    retain:
+      daily: 14
+      weekly: 8
+      monthly: 6

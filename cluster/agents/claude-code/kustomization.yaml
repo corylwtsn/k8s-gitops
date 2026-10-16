@@ -7,3 +7,5 @@ resources:
   - configmap.yaml
   - external-secret.yaml
   - helmrelease.yaml
+  - replicationsource-home.yaml
+  - replicationsource-git.yaml

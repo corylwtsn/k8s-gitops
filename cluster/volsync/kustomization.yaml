@@ -6,3 +6,22 @@ resources:
   - helmrelease.yaml
   - mealie-data-secret.yaml
   - immich-storage-secret.yaml
+  - claude-code-home-secret.yaml
+  - claude-code-git-secret.yaml
+  - executor-data-secret.yaml
+  - home-assistant-config-secret.yaml
+  - memos-resources-secret.yaml
+  - planka-data-secret.yaml
+  - teleport-data-secret.yaml
+  - kube-prometheus-stack-grafana-secret.yaml
+  - jellyfin-config-secret.yaml
+  - grimmory-data-secret.yaml
+  - grimmory-db-secret.yaml
+  - sonarr-config-secret.yaml
+  - radarr-config-secret.yaml
+  - prowlarr-config-secret.yaml
+  - jellyseer-config-secret.yaml
+  - profilarr-config-secret.yaml
+  - qtorrent-config-secret.yaml
+  - sabnzbd-config-secret.yaml
+  - shelfmark-config-secret.yaml

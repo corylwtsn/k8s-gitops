@@ -8,3 +8,4 @@ resources:
 - pvc.yaml
 - httproute.yaml
 - postgres/helmrelease.yaml
+- replicationsource.yaml
