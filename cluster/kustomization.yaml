@@ -16,3 +16,4 @@ resources:
   - observability
   - security
   - system-upgrade
+  - volsync
