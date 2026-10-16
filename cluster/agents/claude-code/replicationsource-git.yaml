@@ -8,7 +8,7 @@ metadata:
 spec:
   sourcePVC: claude-code-git
   trigger:
-    schedule: "0 10 4 * * *"
+    schedule: "10 4 * * *"
   restic:
     repository: claude-code-git-volsync
     copyMethod: Snapshot
