@@ -56,6 +56,13 @@ spec:
       enableSuperuserAccess: false
       enablePDB: true
 
+      plugins:
+        - name: barman-cloud.cloudnative-pg.io
+          enabled: true
+          isWALArchiver: true
+          parameters:
+            barmanObjectName: memos-postgresql-cluster-backups
+
       monitoring:
         enabled: true
         prometheusRule:
@@ -66,3 +73,25 @@ spec:
         database: memos
         secret:
           name: memos-db
+
+    backups:
+      enabled: true
+      method: plugin
+      pluginConfiguration:
+        name: barman-cloud.cloudnative-pg.io
+      provider: s3
+      retentionPolicy: 14d
+      endpointURL: https://s3.us-west-000.backblazeb2.com
+      s3:
+        bucket: cwnet-postgres-backups
+        path: /memos
+      secret:
+        create: false
+        name: cnpg-backups-b2
+      scheduledBackups:
+        - name: daily
+          schedule: "0 30 3 * * *"
+          method: plugin
+          backupOwnerReference: self
+          pluginConfiguration:
+            name: barman-cloud.cloudnative-pg.io
