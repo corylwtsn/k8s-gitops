@@ -8,7 +8,7 @@ metadata:
 spec:
   sourcePVC: claude-code-home
   trigger:
-    schedule: "0 5 4 * * *"
+    schedule: "5 4 * * *"
   restic:
     repository: claude-code-home-volsync
     copyMethod: Snapshot

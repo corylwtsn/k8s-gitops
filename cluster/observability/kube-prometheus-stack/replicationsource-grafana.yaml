@@ -8,7 +8,7 @@ metadata:
 spec:
   sourcePVC: kube-prometheus-stack-grafana
   trigger:
-    schedule: "0 40 4 * * *"
+    schedule: "40 4 * * *"
   restic:
     repository: kube-prometheus-stack-grafana-volsync
     copyMethod: Snapshot

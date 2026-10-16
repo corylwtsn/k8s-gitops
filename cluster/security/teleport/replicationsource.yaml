@@ -8,7 +8,7 @@ metadata:
 spec:
   sourcePVC: teleport-data
   trigger:
-    schedule: "0 35 4 * * *"
+    schedule: "35 4 * * *"
   restic:
     repository: teleport-data-volsync
     copyMethod: Snapshot

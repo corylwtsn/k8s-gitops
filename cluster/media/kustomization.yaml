@@ -4,3 +4,9 @@ resources:
   - namespace.yaml
   - immich
   - jellyfin
+  - replicationsource-jellyfin-config.yaml
+  - replicationsource-grimmory-data.yaml
+  - replicationsource-grimmory-db.yaml
+  - replicationsource-sonarr-config.yaml
+  - replicationsource-radarr-config.yaml
+  - replicationsource-prowlarr-config.yaml

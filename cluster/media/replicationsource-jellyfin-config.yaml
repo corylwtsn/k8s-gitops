@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: jellyfin-config
+  namespace: media
+spec:
+  sourcePVC: jellyfin-config
+  trigger:
+    schedule: "10 5 * * *"
+  restic:
+    repository: jellyfin-config-volsync
+    copyMethod: Snapshot
+    volumeSnapshotClassName: freenas-iscsi-csi
+    storageClassName: freenas-iscsi-csi
+    cacheStorageClassName: freenas-nfs-csi
+    accessModes:
+      - ReadWriteOnce
+    cacheCapacity: 1Gi
+    pruneIntervalDays: 14
+    retain:
+      daily: 14
+      weekly: 8
+      monthly: 6

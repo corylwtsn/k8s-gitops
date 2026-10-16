@@ -8,7 +8,7 @@ metadata:
 spec:
   sourcePVC: executor-data
   trigger:
-    schedule: "0 15 4 * * *"
+    schedule: "15 4 * * *"
   restic:
     repository: executor-data-volsync
     copyMethod: Snapshot

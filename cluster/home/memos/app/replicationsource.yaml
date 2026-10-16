@@ -8,7 +8,7 @@ metadata:
 spec:
   sourcePVC: memos-resources
   trigger:
-    schedule: "0 25 4 * * *"
+    schedule: "25 4 * * *"
   restic:
     repository: memos-resources-volsync
     copyMethod: Snapshot
