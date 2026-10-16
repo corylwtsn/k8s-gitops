@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: immich-storage
+  namespace: media
+spec:
+  sourcePVC: immich-storage
+  trigger:
+    schedule: "0 5 * * *"
+  restic:
+    repository: immich-storage-volsync
+    copyMethod: Snapshot
+    volumeSnapshotClassName: freenas-iscsi-csi
+    storageClassName: freenas-iscsi-csi
+    accessModes:
+      - ReadWriteOnce
+    cacheCapacity: 2Gi
+    pruneIntervalDays: 14
+    retain:
+      daily: 14
+      weekly: 8
+      monthly: 12
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
