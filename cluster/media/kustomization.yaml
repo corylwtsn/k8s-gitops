@@ -10,3 +10,8 @@ resources:
   - replicationsource-sonarr-config.yaml
   - replicationsource-radarr-config.yaml
   - replicationsource-prowlarr-config.yaml
+  - replicationsource-jellyseer-config.yaml
+  - replicationsource-profilarr-config.yaml
+  - replicationsource-qtorrent-config.yaml
+  - replicationsource-sabnzbd-config.yaml
+  - replicationsource-shelfmark-config.yaml
