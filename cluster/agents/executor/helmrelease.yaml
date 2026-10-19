@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/rhyssullivan/executor-selfhost
-              tag: 1.5.42
+              tag: v1.6.10@sha256:b9e001775d3eb7d662d347c8f7054333c78c1a4fd97cb5a86dc1d1d1406093b9
             env:
               EXECUTOR_WEB_BASE_URL: https://executor.internal.wat.sn
             resources:
