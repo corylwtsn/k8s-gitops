@@ -10,7 +10,6 @@ resources:
   - claude-code-git-secret.yaml
   - executor-data-secret.yaml
   - home-assistant-config-secret.yaml
-  - memos-resources-secret.yaml
   - planka-data-secret.yaml
   - teleport-data-secret.yaml
   - kube-prometheus-stack-grafana-secret.yaml
