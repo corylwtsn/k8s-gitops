@@ -45,6 +45,7 @@ spec:
               POSTGRES_SERVER: db.mealie.internal.wat.sn
               BASE_URL: https://mealie.wat.sn
               OIDC_AUTH_ENABLED: true
+              OIDC_REQUIRES_EMAIL_VERIFICATION: false
               OIDC_CONFIGURATION_URL:
                 valueFrom:
                   secretKeyRef:
