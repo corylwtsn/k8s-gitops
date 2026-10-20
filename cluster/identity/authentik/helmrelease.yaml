@@ -19,7 +19,7 @@ spec:
   chart:
     spec:
       chart: authentik
-      version: 2026.5.6
+      version: 2026.8.4
       sourceRef:
         kind: HelmRepository
         name: authentik-charts
@@ -42,7 +42,7 @@ spec:
     global:
       image:
         repository: ghcr.io/goauthentik/server
-        tag: 2026.5.6@sha256:ed120caf710ccf82ef0026f0bc74e51615bc95ebff228a7a2d6fc60c441c3868
+        tag: 2026.8.4@sha256:e7226ae116dac5aa0a5643803e735b010038f492c401e08e16b3bf1ac54c090c
     authentik:
       postgresql:
         host: authentik-postgres-cluster-rw
