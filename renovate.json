@@ -63,6 +63,16 @@
       ]
     },
     {
+      "groupName": "node-feature-discovery",
+      "matchDatasources": [
+        "docker",
+        "helm"
+      ],
+      "matchPackageNames": [
+        "/node-feature-discovery/"
+      ]
+    },
+    {
       "groupName": "authentik",
       "matchDatasources": [
         "docker",
