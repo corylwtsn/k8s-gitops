@@ -27,6 +27,11 @@ spec:
   values:
     controllers:
       main:
+        pod:
+          securityContext:
+            runAsUser: 65532
+            runAsGroup: 65532
+            fsGroup: 65532
         containers:
           app:
             image:
