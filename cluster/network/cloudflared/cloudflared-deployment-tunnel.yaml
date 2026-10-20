@@ -63,8 +63,6 @@ data:
         service: https://photos.internal.wat.sn:443
       - hostname: planka.wat.sn
         service: https://planka.internal.wat.sn:443
-      - hostname: memos.wat.sn
-        service: https://memos.internal.wat.sn:443
       - hostname: ha.wat.sn
         service: https://ha.internal.wat.sn:443
       - hostname: mealie.wat.sn
