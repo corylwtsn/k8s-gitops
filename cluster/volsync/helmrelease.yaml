@@ -21,3 +21,13 @@ spec:
     remediation:
       retries: 3
       remediateLastFailure: true
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: ServiceMonitor
+              name: volsync
+            patch: |
+              - op: add
+                path: /spec/endpoints/0/bearerTokenFile
+                value: /var/run/secrets/kubernetes.io/serviceaccount/token
