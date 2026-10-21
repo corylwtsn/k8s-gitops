@@ -4,6 +4,7 @@ namespace: volsync-system
 resources:
   - namespace.yaml
   - helmrelease.yaml
+  - metrics-reader-binding.yaml
   - mealie-data-secret.yaml
   - immich-storage-secret.yaml
   - claude-code-home-secret.yaml
