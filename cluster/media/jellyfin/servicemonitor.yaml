@@ -1,0 +1,19 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: jellyfin
+  namespace: media
+spec:
+  jobLabel: app.kubernetes.io/name
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 1m
+  namespaceSelector:
+    matchNames:
+      - media
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jellyfin
+      app.kubernetes.io/instance: jellyfin
