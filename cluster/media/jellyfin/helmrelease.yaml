@@ -33,10 +33,10 @@ spec:
             - weight: 100
               preference:
                 matchExpressions:
-                  - key: kubernetes.io/hostname
+                  - key: gpu.intel.com/device-id.0300-46a6.present
                     operator: In
                     values:
-                      - cwnet-node-004
+                      - "true"
       securityContext:
         runAsUser: 568
         runAsGroup: 568
