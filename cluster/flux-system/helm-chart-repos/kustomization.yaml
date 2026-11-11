@@ -9,6 +9,7 @@ resources:
   - coredns.yaml
   - democratic-csi.yaml
   - external-dns.yaml
+  - enix.yaml
   - external-secrets.yaml
   - immich.yaml
   - jetstack.yaml
