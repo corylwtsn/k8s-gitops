@@ -36,6 +36,10 @@ spec:
         storageClass: freenas-nfs-csi
       enableSuperuserAccess: false
       enablePDB: true
+      # kernel 7.0 AppArmor denies postgres signals, breaking crash recovery
+      podSecurityContext:
+        appArmorProfile:
+          type: Unconfined
 
       plugins:
         - name: barman-cloud.cloudnative-pg.io
