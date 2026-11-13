@@ -54,6 +54,10 @@ spec:
         accountId: geoipId
         licenseKey: geoipKey
     server:
+      # kernel 7.0 AppArmor denies gunicorn's startup signal
+      securityContext:
+        appArmorProfile:
+          type: Unconfined
       metrics:
         enabled: true
         serviceMonitor:
