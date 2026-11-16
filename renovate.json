@@ -81,6 +81,16 @@
       "matchPackageNames": [
         "/authentik/"
       ]
+    },
+    {
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "jellyfin/jellyfin"
+      ],
+      "versioning": "loose",
+      "allowedVersions": "/^\\d{1,2}\\.\\d+(\\.\\d+)?$/"
     }
   ],
   "platformAutomerge": true
