@@ -35,23 +35,6 @@ spec:
         storageClass: "freenas-nfs-csi"
       services:
         disabledDefaultServices: ["ro", "r"]
-        additional:
-          - selectorType: rw
-            serviceTemplate:
-              metadata:
-                name: "mealie-db-lb"
-                annotations:
-                  external-dns.alpha.kubernetes.io/hostname: db.mealie.internal.wat.sn.
-              spec:
-                type: LoadBalancer
-                ports:
-                  - name: postgres
-                    port: 5432
-                    targetPort: 5432
-                    protocol: TCP
-      certificates:
-        serverCASecret: mealie-db-cert
-        serverTLSSecret: mealie-db-cert
       enablePDB: true
 
       plugins:
