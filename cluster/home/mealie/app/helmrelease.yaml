@@ -42,7 +42,7 @@ spec:
                   secretKeyRef:
                     name: mealie-db
                     key: password
-              POSTGRES_SERVER: db.mealie.internal.wat.sn
+              POSTGRES_SERVER: mealie-postgresql-cluster-rw
               BASE_URL: https://mealie.wat.sn
               OIDC_AUTH_ENABLED: true
               OIDC_REQUIRES_EMAIL_VERIFICATION: false
