@@ -83,6 +83,54 @@
       ]
     },
     {
+      "groupName": "metallb",
+      "matchDatasources": [
+        "docker",
+        "helm"
+      ],
+      "matchPackageNames": [
+        "/metallb/"
+      ]
+    },
+    {
+      "groupName": "planka",
+      "matchDatasources": [
+        "docker",
+        "helm"
+      ],
+      "matchPackageNames": [
+        "/planka/"
+      ]
+    },
+    {
+      "groupName": "1password connect",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "docker.io/1password/connect-api",
+        "docker.io/1password/connect-sync"
+      ]
+    },
+    {
+      "groupName": "intel device plugins",
+      "matchDatasources": [
+        "helm"
+      ],
+      "matchPackageNames": [
+        "/intel-device-plugins/"
+      ]
+    },
+    {
+      "groupName": "flux controllers",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "ghcr.io/fluxcd{/,}**"
+      ]
+    },
+    {
       "matchDatasources": [
         "docker"
       ],
