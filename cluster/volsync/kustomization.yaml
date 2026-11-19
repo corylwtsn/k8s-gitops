@@ -25,3 +25,4 @@ resources:
   - qtorrent-config-secret.yaml
   - sabnzbd-config-secret.yaml
   - shelfmark-config-secret.yaml
+  - romm-data-secret.yaml
